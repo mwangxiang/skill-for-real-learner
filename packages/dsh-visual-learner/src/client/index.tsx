@@ -10,7 +10,9 @@ const PROBE_STATUS_ENDPOINT = 'status'
 interface ProbeStatus {
   hostLoaded: true
   protocolVersion: 1
-  packageVersion: '0.0.1-alpha.0'
+  packageVersion: '0.0.2-alpha.0'
+  skillCount: 10
+  skillNames: readonly string[]
 }
 
 type Locale = 'zh-CN' | 'en'
@@ -106,7 +108,7 @@ export function apply(ctx: ClientContext): void {
         .then((result) => {
           if (!result.ok) throw new Error(result.error.message)
           const value = result.value as ProbeStatus
-          if (value.hostLoaded !== true || value.protocolVersion !== 1) {
+          if (value.hostLoaded !== true || value.protocolVersion !== 1 || value.skillCount !== 10) {
             throw new Error('unexpected probe response')
           }
           setStatus(value)
@@ -163,6 +165,7 @@ export function apply(ctx: ClientContext): void {
           >
             {state === 'loading' ? t.loading : state === 'ready' ? t.ready : t.error}
             {status !== null && <span style={{ color: 'var(--text-muted, #64748b)' }}> · v{status.packageVersion}</span>}
+            {status !== null && <span data-embedded-skill-count="10" style={{ color: 'var(--text-muted, #64748b)' }}> · {status.skillCount} Skills</span>}
           </div>
           <p style={{ margin: 0, color: 'var(--text-muted, #64748b)', lineHeight: 1.7 }}>{t.detail}</p>
         </section>

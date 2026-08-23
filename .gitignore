@@ -8,6 +8,7 @@ node_modules/
 coverage/
 dist/
 packages/*/lib/
+packages/*/embedded-skills/
 release/
 *.tgz
 .smoke/

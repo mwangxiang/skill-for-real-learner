@@ -29,6 +29,7 @@ try {
   const probe = page.locator('[data-dsh-visual-learner-probe="true"]')
   await probe.waitFor({ timeout: 30_000 })
   await page.locator('[data-probe-state="ready"]').waitFor({ timeout: 15_000 })
+  await page.locator('[data-embedded-skill-count="10"]').waitFor({ timeout: 5_000 })
   await clickIfVisible(page.getByRole('button', { name: /^(继续|Continue)$/ }))
   await clickIfVisible(page.getByRole('button', { name: /^(稍后配置|Configure later)$/ }))
 
@@ -63,6 +64,7 @@ try {
     ok: true,
     baseUrl,
     hostRpc: 'ready',
+    embeddedSkills: 10,
     nativeComposerVisible: false,
     nativeSidebarVisible: false,
     locales: ['zh-CN', 'en'],

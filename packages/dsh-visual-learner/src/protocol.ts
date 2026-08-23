@@ -4,5 +4,7 @@ export const PROBE_STATUS_ENDPOINT = 'status'
 export interface ProbeStatus {
   hostLoaded: true
   protocolVersion: 1
-  packageVersion: '0.0.1-alpha.0'
+  packageVersion: '0.0.2-alpha.0'
+  skillCount: 10
+  skillNames: readonly string[]
 }

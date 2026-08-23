@@ -12,7 +12,7 @@
     "sourceMap": true,
     "declarationMap": true,
     "noEmit": true,
-    "types": ["react"]
+    "types": ["node", "react"]
   },
   "include": ["src/**/*.ts", "src/**/*.tsx"]
 }

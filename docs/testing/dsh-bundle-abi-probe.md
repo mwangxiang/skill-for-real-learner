@@ -46,6 +46,12 @@ package/LICENSE
 
 ## Visual evidence
 
+The two installed-state screenshots were refreshed by the follow-up
+`0.0.2-alpha.0` embedded-Skill probe. The slot-replacement surface is the same;
+the status row additionally proves that all ten Skills loaded. The artifact
+size and checksum in this report remain the original `0.0.1-alpha.0` ABI-only
+package values.
+
 ### Simplified Chinese
 
 ![ABI probe in Simplified Chinese](screenshots/abi-probe-zh-cn.png)
