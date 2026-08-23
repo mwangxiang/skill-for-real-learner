@@ -1,8 +1,8 @@
 # Official DSH Web Host + Client Bundle ABI Probe
 
-> Date: 2026-08-24  
-> DSH: `0.1.1-rc.2` / `b150a551b8d465e31e418e1b2eaf5e79bbb7d28e`  
-> Probe package: `@mwangxiang/dsh-visual-learner@0.0.1-alpha.0`  
+> Date: 2026-08-24<br>
+> DSH: `0.1.1-rc.2` / `b150a551b8d465e31e418e1b2eaf5e79bbb7d28e`<br>
+> Probe package: `@mwangxiang/dsh-visual-learner@0.0.1-alpha.0`<br>
 > Target: official Web Profile only
 
 ## Outcome
