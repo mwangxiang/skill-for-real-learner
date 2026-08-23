@@ -16,6 +16,8 @@
 
 同步后只保留以下本仓库差异：目录和 frontmatter `name` 改为 `teach-core`；删除 `disable-model-invocation: true`；删除 `policy.allow_implicit_invocation: false`；界面名称改为 `Teach Core`。`teach-core` 不承载本仓库自己的教学补丁；所有增量行为只写在 `teach-me`。完成时逐文件比较上游，确认没有其他正文或格式差异。
 
+仓库提供确定性入口：`node scripts/sync-teach-core.mjs --source <matt-teach-dir>` 先校验 `SOURCE_LOCK.json` 中的上游逐文件 SHA-256，再只应用上述允许转换；`--check` 只比较不写入。同步后把脚本输出的 transformed SHA-256 写回来源锁，并保持 `packaging_allowed` 只有在 check 通过时才可为 `true`。
+
 ## 维护 `grill-with-learn`
 
 `grill-with-learn` 有意沿用上游 `grill-with-docs` 的薄适配模式，只把文档建模能力替换为本仓库的 `learn-modeling`。`SKILL.md` 中“using `/learn-modeling`”表示在质询过程中可按需复用，不表示无条件建立学习模型。审计或修改时，以 `skills/README.md` 与 `docs/grill-with-learn.md` 的公开契约为准：仅当指定材料阻塞当前判断时才建模；不得仅因入口正文很短，而要求它重复 `grilling` 的流程分支、停止条件、交接边界或独立评测。

@@ -4,3 +4,8 @@ skills/matt/
 .obsidian/
 /reference/
 .claudian/
+node_modules/
+coverage/
+dist/
+release/
+*.tgz

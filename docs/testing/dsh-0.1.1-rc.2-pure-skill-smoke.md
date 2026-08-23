@@ -17,9 +17,10 @@
 | User-explicit `/name` Web flow | PASS, keyless official replay | 2 E2E files / 3 tests passed |
 | Live provider model independently chooses and reads a Skill resource | NOT RUN | no DSH credential was present on this machine |
 
-The pure Skill result does not waive the `teach-core` drift gate in
-`SOURCE_LOCK.json`; packaging remains disallowed until the transformed mirror
-matches the locked Matt source under the documented policy.
+The initial pure Skill result did not waive the `teach-core` drift gate. The
+follow-up deterministic sync has since brought all six files into conformance;
+`SOURCE_LOCK.json` now records `status: verified` and
+`packaging_allowed: true`. See `teach-core-source-sync.md`.
 
 ## Commands and outcomes
 
@@ -83,6 +84,16 @@ Result: one file / one test passed. It proved:
 - directory `resourceBase` values;
 - readable references for `learn-modeling`, `learn-one-concept`, `teach-me`,
   `study-review`, and the cross-Skill `to-sop → teach-core` format.
+
+The Fork now has a private root workspace manifest with exact published DSH
+test dependencies. The durable command is:
+
+```powershell
+pnpm install --frozen-lockfile
+pnpm run test:pure-skills
+```
+
+Current result after `teach-core` sync: one file / three tests passed.
 
 ### Official keyless Web E2E
 

@@ -30,33 +30,40 @@
     }
   },
   "teach_core_comparison": {
-    "status": "drift-detected",
-    "packaging_allowed": false,
+    "status": "verified",
+    "packaging_allowed": true,
+    "transformation_policy_version": 1,
     "policy": "Apply only the name, invocation-policy, and display-name transformations documented in AGENTS.md; every other normalized difference fails the update gate.",
     "files": {
       "SKILL.md": {
-        "learner_sha256": "ec7065505b06d5d044aee5117af13d4eaaff5015e3536e584cb521a8df67460e",
-        "upstream_sha256": "3377485cbb1d62782122c1cc8cab4ceb37d5457c0543889784f3d7d9ca359e04"
+        "learner_sha256": "feae173cfbf53597e283b349f0eb5372f3b86e22114e946e597e45d5b1b6bd5b",
+        "upstream_sha256": "3377485cbb1d62782122c1cc8cab4ceb37d5457c0543889784f3d7d9ca359e04",
+        "transformed_sha256": "feae173cfbf53597e283b349f0eb5372f3b86e22114e946e597e45d5b1b6bd5b"
       },
       "MISSION-FORMAT.md": {
-        "learner_sha256": "ba1bc536615a6940414d96a1d87562f8f2684f56649d44ba15abaaf1833d0ce9",
-        "upstream_sha256": "44ea82d5f57a626086bde99c70cd229cdef67998e8502c1cbcd50504f57f989a"
+        "learner_sha256": "44ea82d5f57a626086bde99c70cd229cdef67998e8502c1cbcd50504f57f989a",
+        "upstream_sha256": "44ea82d5f57a626086bde99c70cd229cdef67998e8502c1cbcd50504f57f989a",
+        "transformed_sha256": "44ea82d5f57a626086bde99c70cd229cdef67998e8502c1cbcd50504f57f989a"
       },
       "RESOURCES-FORMAT.md": {
-        "learner_sha256": "b5c7f17ce7c7b7f49a3a0007162e5024948c7b5c45c549643cafeb900ed431a6",
-        "upstream_sha256": "377e70f83d41fdc2623037410600194655a2f7df41000925c24cc437da074ab5"
+        "learner_sha256": "377e70f83d41fdc2623037410600194655a2f7df41000925c24cc437da074ab5",
+        "upstream_sha256": "377e70f83d41fdc2623037410600194655a2f7df41000925c24cc437da074ab5",
+        "transformed_sha256": "377e70f83d41fdc2623037410600194655a2f7df41000925c24cc437da074ab5"
       },
       "GLOSSARY-FORMAT.md": {
-        "learner_sha256": "408c96dce06be99b53a6e05b1e3201c900bcbb46ae3cf08ead8aa3e3cb545d8c",
-        "upstream_sha256": "22f851b265a3bec5a333937cc7ff1250136c9b6512787ae2eb51a2a14e35c341"
+        "learner_sha256": "22f851b265a3bec5a333937cc7ff1250136c9b6512787ae2eb51a2a14e35c341",
+        "upstream_sha256": "22f851b265a3bec5a333937cc7ff1250136c9b6512787ae2eb51a2a14e35c341",
+        "transformed_sha256": "22f851b265a3bec5a333937cc7ff1250136c9b6512787ae2eb51a2a14e35c341"
       },
       "LEARNING-RECORD-FORMAT.md": {
-        "learner_sha256": "7bbbf6e325370633c77ec772cf4d30da19037ff2892c9e751f23e2696cf80888",
-        "upstream_sha256": "d49c754ea416a075534d0ba1428a0beba1327ae527c2d1af0333908d08e25d05"
+        "learner_sha256": "d49c754ea416a075534d0ba1428a0beba1327ae527c2d1af0333908d08e25d05",
+        "upstream_sha256": "d49c754ea416a075534d0ba1428a0beba1327ae527c2d1af0333908d08e25d05",
+        "transformed_sha256": "d49c754ea416a075534d0ba1428a0beba1327ae527c2d1af0333908d08e25d05"
       },
       "agents/openai.yaml": {
         "learner_sha256": "9fd8c132fbe5966f1bc55f354ef38cd1b74aaa5061c5a28510e7ad094756d3e2",
-        "upstream_sha256": "80e96a4d492ad8538e609672361e8543b69e7b22ce83be0efc2e5532472ede69"
+        "upstream_sha256": "80e96a4d492ad8538e609672361e8543b69e7b22ce83be0efc2e5532472ede69",
+        "transformed_sha256": "9fd8c132fbe5966f1bc55f354ef38cd1b74aaa5061c5a28510e7ad094756d3e2"
       }
     }
   }
