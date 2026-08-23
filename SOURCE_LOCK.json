@@ -1,0 +1,63 @@
+{
+  "schema_version": 1,
+  "recorded_at": "2026-08-24",
+  "sources": {
+    "learner": {
+      "repository": "https://github.com/MingStudentSE/skill-for-real-learner",
+      "commit": "f3b5ac3dd64b0b0959cae663956ba583d29b6a96",
+      "tree": "cfc51d62f6b93a28cad7a138c90252bd54581ceb",
+      "fork": "https://github.com/mwangxiang/skill-for-real-learner",
+      "license": "MIT"
+    },
+    "matt_pocock_skills": {
+      "repository": "https://github.com/mattpocock/skills",
+      "commit": "0ab1b63a410a03d3627979a109c8695de27af954",
+      "plugin_version": "1.2.3",
+      "manifest_sha256": "4574a3d5f36fdfaa3f37169d607773eaba696ebfc3b0f31e97d99b59d20a4211",
+      "manifest_check": {
+        "ok": true,
+        "hashes_match": true,
+        "source_current": true,
+        "skill_count": 25,
+        "file_count": 104
+      }
+    },
+    "deepseek_harness": {
+      "repository": "https://github.com/deepseek-ai/deepseek-harness",
+      "version": "0.1.1-rc.2",
+      "tag": "dsh-v0.1.1-rc.2",
+      "commit": "b150a551b8d465e31e418e1b2eaf5e79bbb7d28e"
+    }
+  },
+  "teach_core_comparison": {
+    "status": "drift-detected",
+    "packaging_allowed": false,
+    "policy": "Apply only the name, invocation-policy, and display-name transformations documented in AGENTS.md; every other normalized difference fails the update gate.",
+    "files": {
+      "SKILL.md": {
+        "learner_sha256": "ec7065505b06d5d044aee5117af13d4eaaff5015e3536e584cb521a8df67460e",
+        "upstream_sha256": "3377485cbb1d62782122c1cc8cab4ceb37d5457c0543889784f3d7d9ca359e04"
+      },
+      "MISSION-FORMAT.md": {
+        "learner_sha256": "ba1bc536615a6940414d96a1d87562f8f2684f56649d44ba15abaaf1833d0ce9",
+        "upstream_sha256": "44ea82d5f57a626086bde99c70cd229cdef67998e8502c1cbcd50504f57f989a"
+      },
+      "RESOURCES-FORMAT.md": {
+        "learner_sha256": "b5c7f17ce7c7b7f49a3a0007162e5024948c7b5c45c549643cafeb900ed431a6",
+        "upstream_sha256": "377e70f83d41fdc2623037410600194655a2f7df41000925c24cc437da074ab5"
+      },
+      "GLOSSARY-FORMAT.md": {
+        "learner_sha256": "408c96dce06be99b53a6e05b1e3201c900bcbb46ae3cf08ead8aa3e3cb545d8c",
+        "upstream_sha256": "22f851b265a3bec5a333937cc7ff1250136c9b6512787ae2eb51a2a14e35c341"
+      },
+      "LEARNING-RECORD-FORMAT.md": {
+        "learner_sha256": "7bbbf6e325370633c77ec772cf4d30da19037ff2892c9e751f23e2696cf80888",
+        "upstream_sha256": "d49c754ea416a075534d0ba1428a0beba1327ae527c2d1af0333908d08e25d05"
+      },
+      "agents/openai.yaml": {
+        "learner_sha256": "9fd8c132fbe5966f1bc55f354ef38cd1b74aaa5061c5a28510e7ad094756d3e2",
+        "upstream_sha256": "80e96a4d492ad8538e609672361e8543b69e7b22ce83be0efc2e5532472ede69"
+      }
+    }
+  }
+}
