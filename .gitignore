@@ -7,5 +7,7 @@ skills/matt/
 node_modules/
 coverage/
 dist/
+packages/*/lib/
 release/
 *.tgz
+.smoke/

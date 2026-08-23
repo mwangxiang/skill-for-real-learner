@@ -4,6 +4,9 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "build": "pnpm --filter @mwangxiang/dsh-visual-learner build",
+    "pack:probe": "pnpm --dir packages/dsh-visual-learner pack --pack-destination ../../release",
+    "typecheck": "pnpm --filter @mwangxiang/dsh-visual-learner typecheck",
     "test": "pnpm run test:pure-skills",
     "test:pure-skills": "vitest run tests/dsh-pure-skills.smoke.spec.ts"
   },
@@ -15,6 +18,7 @@
     "@deepseek-ai/cordis": "4.0.1",
     "@deepseek-ai/dsh-skill": "0.1.1-rc.2",
     "@deepseek-ai/dsh-skill-filesystem": "0.1.1-rc.2",
+    "playwright": "1.61.1",
     "vitest": "4.1.8"
   }
 }
