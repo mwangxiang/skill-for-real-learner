@@ -1,16 +1,37 @@
-# DSH Visual Learner
+# DSH Work & Learning
 
-> ABI + embedded Skill provider probe: `0.0.2-alpha.0`
+> Internal test build: `0.1.0-alpha.18`
 
-This package is the first prebuilt Host + Client Bundle probe for the official
-DSH `0.1.1-rc.2` Web Profile. It is not yet the complete learning product.
+An installable Host + Client Bundle for the official DeepSeek Harness Web Profile `0.1.1-rc.2`. It adds one session-header action and a right-side non-modal drawer while preserving the native sidebar, conversation, composer, settings, and model controls.
 
-The package carries the ten locked Skills. The Host registers them through the
-official filesystem provider and exposes one loopback-only status endpoint.
-The Client uses the
-official `conversation` single slot with priority `-1`, proves that the Host
-is reachable, and renders a bilingual Simplified Chinese / English probe.
+The product order is fixed:
 
-The probe intentionally does not register the unstable root slot, scan a
-Vault, store credentials, or write learning artifacts. A live model learning
-turn remains a separate credential-gated test.
+1. complete real work and generate a usable artifact;
+2. distill versions, preferences, checklists, and reusable rules;
+3. offer optional learning derived from completed work.
+
+The alpha.15 golden slice creates a real, editable seven-slide `.pptx` plus a Markdown outline from a reporting brief. The user can download the draft, submit one batch of feedback to create a new preserved version, accept the final artifact, and then keep or skip the optional learning suggestion.
+
+Chinese is the primary language and English is fully available. Ordinary users do not need to see Agent sessions, Skill commands, RPC names, or sidecar files.
+
+## Install in an isolated Web Profile
+
+```powershell
+$env:DSH_HOME = 'C:\path\to\isolated-dsh-home'
+dsh plugin --profile web add C:\path\to\mwangxiang-dsh-visual-learner-0.1.0-alpha.18.tgz
+dsh web --no-open --port 3080
+```
+
+Remove only the Bundle:
+
+```powershell
+dsh plugin --profile web remove @mwangxiang/dsh-visual-learner
+```
+
+Removal does not delete `work-projects/`, generated deliverables, or distilled assets.
+
+## Current release boundary
+
+This package is private and intended for partner testing only. Public npm publication or redistribution remains blocked until the embedded learning source has a clear license or equivalent release grant.
+
+The current slice is intentionally presentation-first. It proves the product flow and controlled artifact generation; additional artifact types and full real-model capability coverage remain later gates.

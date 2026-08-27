@@ -1,0 +1,22 @@
+{
+  "packageName": "DSH-Work-Learning-partner-test",
+  "version": "0.1.0-alpha.18",
+  "channel": "partner-private-test",
+  "compatibility": {
+    "deepseekHarness": "0.1.1-rc.2",
+    "profile": "web",
+    "pilotDesktop": "not-supported"
+  },
+  "plugin": {
+    "name": "@mwangxiang/dsh-visual-learner",
+    "file": "plugin/mwangxiang-dsh-visual-learner-0.1.0-alpha.18.tgz",
+    "sha256": "7FCDBF8609C1481A28066F5EE25002CE4289742D531616BA02DCDD6276DA1193",
+    "size": 306003
+  },
+  "privacy": {
+    "containsApiKeys": false,
+    "containsSessionLogs": false,
+    "containsUserArtifacts": false
+  },
+  "publicReleaseAllowed": false
+}

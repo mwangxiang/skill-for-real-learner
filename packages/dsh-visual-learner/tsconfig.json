@@ -3,6 +3,8 @@
     "target": "ES2024",
     "module": "NodeNext",
     "moduleResolution": "NodeNext",
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
     "allowImportingTsExtensions": true,
     "lib": ["ES2024", "DOM", "DOM.Iterable"],
     "jsx": "react-jsx",
@@ -14,5 +16,5 @@
     "noEmit": true,
     "types": ["node", "react"]
   },
-  "include": ["src/**/*.ts", "src/**/*.tsx"]
+  "include": ["src/**/*.ts", "src/**/*.tsx", "src-v01/**/*.ts", "src-v01/**/*.tsx"]
 }

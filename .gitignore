@@ -12,3 +12,4 @@ packages/*/embedded-skills/
 release/
 *.tgz
 .smoke/
+/artifacts/

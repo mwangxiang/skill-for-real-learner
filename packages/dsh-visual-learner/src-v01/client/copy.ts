@@ -1,0 +1,50 @@
+export type Locale = 'zh-CN' | 'en'
+
+export const copy = {
+  'zh-CN': {
+    open: '打开工作空间', close: '关闭工作空间', title: '工作空间', home: '工作', reviews: '学习', outcomes: '资产',
+    emptyPrompt: '你现在想把什么事情真正做完？', emptyBody: '直接说明对象、目的、已有材料和想要的成品。信息足够时，AI 会直接开始制作。', goalLabel: '这次要完成的工作',
+    goalPlaceholder: '例如：做一份给部门主管的 7 页项目汇报，说明进度、资源投入、成果和困难，希望争取技术支持与资源倾斜。',
+    workExample: '做一份给部门主管的 7 页项目汇报。重点说明项目进度、时间与资源投入、已完成工作和当前困难，希望争取技术支持与资源倾斜。最好可以直接发送，合格版本只需微调。',
+    startWorking: '开始制作初稿', creatingDraft: 'AI 正在制作第一版…', processingHelp: '通常需要几分钟。请不要重复提交，你可以先关闭面板。',
+    startNew: '开始一项新工作', continue: '继续完成', viewResult: '查看成果', activeWork: '正在完成', noActiveWork: '当前没有进行中的工作。', recentCompleted: '最近完成',
+    pages: '页', noDraftYet: '还没有初稿', backOverview: '返回工作首页', projectMissing: '没有找到这个工作项目。', artifactMissing: '成品暂时无法显示，请刷新后重试。',
+    stepOne: '第 1 步 · 告诉我想做什么', stepTwo: '第 2 步 · 看 AI 做出的初稿', stepThree: '第 3 步 · 修改或确认',
+    justConfirm: '只确认三个会影响成品的问题', confirmReason: '这些信息会明显改变成品。你可以一次回答，也可以直接按推荐方案继续。', recommended: '推荐', yourExtraInfo: '一次补充完', extraPlaceholder: '按 1、2、3 集中回答；不确定的地方可以写“按建议”。', useMyInfo: '用我的补充开始制作', continueRecommended: '按建议继续',
+    savedBrief: '你的需求已经安全保存', retryCreate: '重新开始制作初稿',
+    coreThesis: '这版的核心论点', downloadPptx: '下载可编辑 PPT', downloadOutline: '下载文字大纲', assumptions: '查看 AI 做了哪些可逆假设',
+    reviseOrAccept: '集中修改，或者接受这一版', feedbackLabel: '这次希望一起改什么', feedbackPlaceholder: '例如：第 3 页把成果写得更具体；第 5 页弱化抱怨，改成风险与解决方案；整体更简洁。', revisingDraft: 'AI 正在修改成品…', applyFeedback: '按这批意见生成新版', acceptVersion: '接受这一版', versionHistory: (count: number) => `查看 ${count} 个历史版本`,
+    completedWork: '工作已完成', finalReady: '终稿已保存，可以直接下载', savedAssets: '系统已经替你留下这些方法', preferences: '识别出的偏好', checklist: '下次交付前检查', optionalLearning: '要不要顺便把一个问题学透？', optionalLearningBody: '这是附加选项。跳过不会影响终稿、资产或项目完成状态。', learningSelected: '已加入可选学习。你可以在底部“学习”页随时回来。', learnThis: '把这个问题学透', finishNow: '先结束，保留成果',
+    assetsIntro: '这里保存真实成品、历史版本和从工作中沉淀的方法。', noOutcomes: '完成第一版真实成品后，这里会出现文件和版本。', versions: '个版本', assetsReady: '方法已沉淀', assetsAfterAccept: '接受终稿后自动沉淀方法',
+    learningIntro: '学习只从已经完成的真实工作中产生，完全可选，不会阻塞交付。', noReviews: '目前没有可选学习。先完成一项真实工作，系统会从过程中识别值得深入的问题。', optional: '可选', learningSelectedShort: '已选择继续学习',
+    exampleLabel: '可直接修改的示例', useExample: '使用这个示例', legacyExampleLabel: '填写示例（不是标准答案）', legacyWait: '通常需要 1–2 分钟',
+    narrowTitle: '窗口太窄，暂时无法打开完整工作面板', narrowBody: '请把窗口调宽到至少 768 像素，再点一次入口。原生 Harness 仍可正常使用。', dismiss: '知道了',
+    dueCount: (count: number) => `打开工作空间，${count} 项可选学习`,
+    // Legacy card copy retained while old adapter fixtures remain in the repository.
+    today: '今天最值得做', activeProjects: '进行中的项目', startReview: '开始复现', routeCount: (done: number, total: number) => `已完成 ${done} 步 · 共 ${total} 步`, currentCount: (index: number, total: number) => `当前第 ${index} 步 · 共 ${total} 步`,
+    routeChange: '路线会调整', completed: '已完成', current: '现在进行', next: '接下来', conditional: '按需加入', scheduled: '已安排', paused: '暂停', skipped: '已跳过', running: '正在处理', retry: '可以重试', reinforcement: '需要补一小步',
+    routeChanges: '查看变化', projectMenu: '项目操作', rename: '重命名', pause: '暂停项目', archive: '归档项目', export: '导出项目', whyNow: '为什么现在做', finishLine: '做到什么算完成', viewRoute: '查看项目', notFit: '这一步不适合我', saveNote: '内容保存在当前项目。', proven: '已经证明', notProven: '尚未证明', adjustment: '调整', nextStep: '下一步', continueNext: '继续', evidence: '你的内容', inputHint: '可以从这里开始', checkingEvidence: '正在处理…', checkingHelp: '请不要重复提交。', submitEvidence: '提交', submitReview: '提交', confirm: '确认', beginStep: '开始', answer: '提交', due: '今天到期', overdue: '已逾期', later: '稍后', defer: '延期一天', timeline: '时间线', evidenceStatus: '证据', methods: '方法', works: '作品', activity: '活动',
+  },
+  en: {
+    open: 'Open workspace', close: 'Close workspace', title: 'Workspace', home: 'Work', reviews: 'Learn', outcomes: 'Assets',
+    emptyPrompt: 'What do you want to get done?', emptyBody: 'Describe the audience, purpose, available material, and deliverable. If that is enough, AI starts immediately.', goalLabel: 'Work to complete',
+    goalPlaceholder: 'Example: create a seven-slide project update for my department lead to request technical and staffing support.',
+    workExample: 'Create a seven-slide project update for my department lead. Cover progress, time and resources, completed work, and current blockers. The goal is to obtain technical and resource support. A good version should need only minor edits.',
+    startWorking: 'Create first draft', creatingDraft: 'AI is creating the first draft…', processingHelp: 'This may take a few minutes. Do not resubmit; you may close the panel.',
+    startNew: 'Start new work', continue: 'Continue', viewResult: 'View result', activeWork: 'In progress', noActiveWork: 'No active work.', recentCompleted: 'Recently completed',
+    pages: 'pages', noDraftYet: 'No draft yet', backOverview: 'Back to work', projectMissing: 'This work project was not found.', artifactMissing: 'The artifact cannot be displayed. Refresh and try again.',
+    stepOne: 'Step 1 · Tell me what to make', stepTwo: 'Step 2 · Review the AI draft', stepThree: 'Step 3 · Revise or accept',
+    justConfirm: 'Confirm only three details that change the result', confirmReason: 'Answer once or continue with the recommendations.', recommended: 'Recommended', yourExtraInfo: 'Add details once', extraPlaceholder: 'Answer 1, 2, and 3 together. Use “recommended” when unsure.', useMyInfo: 'Create from my details', continueRecommended: 'Continue with recommendations',
+    savedBrief: 'Your brief is safely saved', retryCreate: 'Try creating the draft again',
+    coreThesis: 'Core thesis', downloadPptx: 'Download editable PPT', downloadOutline: 'Download outline', assumptions: 'View reversible AI assumptions',
+    reviseOrAccept: 'Revise in one batch or accept', feedbackLabel: 'What should change together?', feedbackPlaceholder: 'Example: make slide 3 more concrete, frame slide 5 as risks and solutions, and simplify the deck.', revisingDraft: 'AI is revising the artifact…', applyFeedback: 'Create a new version', acceptVersion: 'Accept this version', versionHistory: (count: number) => `View ${count} versions`,
+    completedWork: 'Work completed', finalReady: 'Final artifact saved and ready to download', savedAssets: 'Reusable methods saved for you', preferences: 'Preferences detected', checklist: 'Pre-delivery checklist', optionalLearning: 'Want to learn one issue more deeply?', optionalLearningBody: 'This is optional. Skipping does not affect the artifact, assets, or completion.', learningSelected: 'Added to optional learning. Return from the Learn tab at any time.', learnThis: 'Learn this deeply', finishNow: 'Finish and keep my work',
+    assetsIntro: 'Real artifacts, versions, and reusable methods from completed work live here.', noOutcomes: 'Your files and versions appear here after the first real artifact.', versions: 'versions', assetsReady: 'Methods distilled', assetsAfterAccept: 'Methods are distilled after acceptance',
+    learningIntro: 'Learning is derived only from completed real work. It is optional and never blocks delivery.', noReviews: 'No optional learning yet. Complete real work first.', optional: 'Optional', learningSelectedShort: 'Selected',
+    exampleLabel: 'Editable example', useExample: 'Use this example', legacyExampleLabel: 'Example structure (not a model answer)', legacyWait: 'Usually takes 1–2 minutes',
+    narrowTitle: 'The window is too narrow for the full work panel', narrowBody: 'Widen it to at least 768 pixels and open again. Native Harness remains available.', dismiss: 'Got it', dueCount: (count: number) => `Open workspace, ${count} optional learning items`,
+    today: 'Best next action', activeProjects: 'Active projects', startReview: 'Start review', routeCount: (done: number, total: number) => `${done} of ${total} steps completed`, currentCount: (index: number, total: number) => `Step ${index} of ${total}`, routeChange: 'The route adapts', completed: 'Completed', current: 'Now', next: 'Next', conditional: 'If needed', scheduled: 'Scheduled', paused: 'Paused', skipped: 'Skipped', running: 'Processing', retry: 'Retry', reinforcement: 'Small reinforcement needed', routeChanges: 'View changes', projectMenu: 'Project actions', rename: 'Rename', pause: 'Pause', archive: 'Archive', export: 'Export', whyNow: 'Why now', finishLine: 'Done means', viewRoute: 'View project', notFit: 'Not a fit', saveNote: 'Saved in this project.', proven: 'Proven', notProven: 'Not proven', adjustment: 'Adjustment', nextStep: 'Next', continueNext: 'Continue', evidence: 'Your content', inputHint: 'Start here', checkingEvidence: 'Processing…', checkingHelp: 'Do not submit again.', submitEvidence: 'Submit', submitReview: 'Submit', confirm: 'Confirm', beginStep: 'Start', answer: 'Submit', due: 'Due', overdue: 'Overdue', later: 'Later', defer: 'Defer', timeline: 'Timeline', evidenceStatus: 'Evidence', methods: 'Methods', works: 'Work', activity: 'Activity',
+  },
+} as const
+
+export type Copy = typeof copy['zh-CN'] | typeof copy['en']

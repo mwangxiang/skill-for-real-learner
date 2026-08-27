@@ -3,7 +3,7 @@ import { defineConfig } from 'tsdown'
 const productionExternal = /^(?:node:|@deepseek-ai\/)/
 
 export default defineConfig({
-  entry: ['src/index.ts'],
+  entry: ['src-v01/index.ts'],
   outDir: 'lib',
   format: ['esm'],
   platform: 'node',

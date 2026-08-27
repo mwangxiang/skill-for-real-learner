@@ -1,7 +1,8 @@
 {
   "name": "@mwangxiang/dsh-visual-learner",
-  "version": "0.0.2-alpha.0",
-  "description": "Panel-first visual learning bundle for official DSH Web",
+  "version": "0.1.0-alpha.18",
+  "private": true,
+  "description": "Native work-delivery, asset-distillation, and optional-learning plugin for official DSH Web",
   "type": "module",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -22,7 +23,9 @@
       "inject": [
         "@deepseek-ai/dsh-client-connection",
         "@deepseek-ai/dsh-client-runtime",
-        "@deepseek-ai/dsh-client-ui-layout"
+        "@deepseek-ai/dsh-client-ui-layout",
+        "@deepseek-ai/dsh-client-ui-conversation",
+        "@deepseek-ai/dsh-client-ui-slots"
       ],
       "platform": "web"
     }
@@ -49,35 +52,59 @@
     "agent-skill"
   ],
   "license": "MIT",
-  "publishConfig": {
-    "access": "public"
-  },
   "peerDependencies": {
+    "@deepseek-ai/dsh-agent": "0.1.1-rc.2",
+    "@deepseek-ai/dsh-agent-default-model": "0.1.1-rc.2",
+    "@deepseek-ai/dsh-llm": "0.1.1-rc.2",
+    "@deepseek-ai/dsh-session": "0.1.1-rc.2",
+    "@deepseek-ai/dsh-session-persistence": "0.1.1-rc.2",
     "@deepseek-ai/cordis": "4.0.1",
     "@deepseek-ai/dsh-client-connection": "0.1.1-rc.2",
     "@deepseek-ai/dsh-client-runtime": "0.1.1-rc.2",
     "@deepseek-ai/dsh-client-ui-layout": "0.1.1-rc.2",
+    "@deepseek-ai/dsh-client-ui-conversation": "0.1.1-rc.2",
     "@deepseek-ai/dsh-client-ui-slots": "0.1.1-rc.2",
+    "@deepseek-ai/dsh-typert-protocol": "0.1.1-rc.2",
+    "@deepseek-ai/dsh-typert-registry": "0.1.1-rc.2",
+    "@deepseek-ai/dsh-tools": "0.1.1-rc.2",
     "@deepseek-ai/dsh-skill": "0.1.1-rc.2",
     "@deepseek-ai/dsh-skill-filesystem": "0.1.1-rc.2",
     "react": "^18.2.0 || ^19.0.0"
   },
   "peerDependenciesMeta": {
+    "@deepseek-ai/dsh-agent": { "optional": true },
+    "@deepseek-ai/dsh-agent-default-model": { "optional": true },
+    "@deepseek-ai/dsh-llm": { "optional": true },
+    "@deepseek-ai/dsh-session": { "optional": true },
+    "@deepseek-ai/dsh-session-persistence": { "optional": true },
+    "@deepseek-ai/dsh-tools": { "optional": true },
+    "@deepseek-ai/dsh-typert-protocol": { "optional": true },
+    "@deepseek-ai/dsh-typert-registry": { "optional": true },
     "@deepseek-ai/cordis": { "optional": true },
     "@deepseek-ai/dsh-client-connection": { "optional": true },
     "@deepseek-ai/dsh-client-runtime": { "optional": true },
     "@deepseek-ai/dsh-client-ui-layout": { "optional": true },
+    "@deepseek-ai/dsh-client-ui-conversation": { "optional": true },
     "@deepseek-ai/dsh-client-ui-slots": { "optional": true },
     "@deepseek-ai/dsh-skill": { "optional": true },
     "@deepseek-ai/dsh-skill-filesystem": { "optional": true },
     "react": { "optional": true }
   },
   "devDependencies": {
+    "@deepseek-ai/dsh-agent": "0.1.1-rc.2",
+    "@deepseek-ai/dsh-agent-default-model": "0.1.1-rc.2",
+    "@deepseek-ai/dsh-llm": "0.1.1-rc.2",
+    "@deepseek-ai/dsh-session": "0.1.1-rc.2",
+    "@deepseek-ai/dsh-session-persistence": "0.1.1-rc.2",
     "@deepseek-ai/cordis": "4.0.1",
     "@deepseek-ai/dsh-client-connection": "0.1.1-rc.2",
     "@deepseek-ai/dsh-client-runtime": "0.1.1-rc.2",
     "@deepseek-ai/dsh-client-ui-layout": "0.1.1-rc.2",
+    "@deepseek-ai/dsh-client-ui-conversation": "0.1.1-rc.2",
     "@deepseek-ai/dsh-client-ui-slots": "0.1.1-rc.2",
+    "@deepseek-ai/dsh-typert-protocol": "0.1.1-rc.2",
+    "@deepseek-ai/dsh-typert-registry": "0.1.1-rc.2",
+    "@deepseek-ai/dsh-tools": "0.1.1-rc.2",
     "@deepseek-ai/dsh-skill": "0.1.1-rc.2",
     "@deepseek-ai/dsh-skill-filesystem": "0.1.1-rc.2",
     "@types/node": "22.20.0",
@@ -85,6 +112,10 @@
     "react": "18.3.1",
     "tsdown": "0.22.2",
     "typescript": "6.0.3"
+  },
+  "dependencies": {
+    "pptxgenjs": "4.0.1",
+    "zod": "^4.4.3"
   },
   "engines": {
     "node": "^22.19.0 || >=24.0.0"

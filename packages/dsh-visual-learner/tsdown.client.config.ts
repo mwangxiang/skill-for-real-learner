@@ -1,9 +1,11 @@
 import { defineConfig } from 'tsdown'
 
 const PACKAGE_ID = '@mwangxiang/dsh-visual-learner'
+const requestedExternal = (specifier: string): boolean =>
+  specifier === 'react' || specifier.startsWith('react/') || specifier.startsWith('@deepseek-ai/')
 
 export default defineConfig({
-  entry: { client: 'src/client/index.tsx' },
+  entry: { client: 'src-v01/client/index.tsx' },
   outDir: 'lib',
   format: ['cjs'],
   platform: 'browser',
@@ -13,8 +15,8 @@ export default defineConfig({
   sourcemap: true,
   clean: false,
   deps: {
-    neverBundle: (specifier: string) => !specifier.startsWith('.') && !specifier.startsWith('\0'),
-    alwaysBundle: (specifier: string) => specifier.startsWith('.'),
+    neverBundle: requestedExternal,
+    alwaysBundle: (specifier: string) => !requestedExternal(specifier),
   },
   outputOptions: {
     entryFileNames: 'client.js',
