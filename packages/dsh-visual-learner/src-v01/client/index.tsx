@@ -7,11 +7,26 @@ import { LearnerDrawer } from './components/LearnerDrawer.tsx'
 import { DrawerController, type RpcCarrier } from './state.ts'
 import { styles } from './styles.ts'
 
-export const inject = ['slots', 'connection']
+declare module '@deepseek-ai/dsh-client-ui-slots' {
+  interface SlotMap {
+    'shell.right-sidebar': { kind: 'list'; scope: 'root' }
+  }
+}
+
+interface PilotLayout {
+  openRightSidebar?: () => void
+  closeRightSidebar?: () => void
+}
+
+export const inject = ['slots', 'connection', 'layout']
 
 export function apply(ctx: ClientContext): void {
   const rpc = (ctx as unknown as { connection: { rpc: RpcCarrier } }).connection.rpc
-  const controller = new DrawerController(rpc)
+  const layout = ctx.layout as PilotLayout
+  const controller = new DrawerController(rpc, {
+    open: () => layout.openRightSidebar?.(),
+    close: () => layout.closeRightSidebar?.(),
+  })
   ctx.effect(() => {
     const style = document.createElement('style')
     style.dataset['dshLearningStyles'] = 'v01'
@@ -19,10 +34,10 @@ export function apply(ctx: ClientContext): void {
     document.head.append(style)
     return () => style.remove()
   }, 'dsh-learning: scoped styles')
-  ctx.slots.inject('conversation.session.header.actions', () => ctx.slots.register({
-    name: 'conversation.session.header.actions', id: 'dsh-learning-entry', order: 40,
+  ctx.slots.inject('conversation.session.header.utilities', () => ctx.slots.register({
+    name: 'conversation.session.header.utilities', id: 'dsh-learning-entry', order: 40,
   }, props => <LearnerHeaderAction controller={controller} {...props} />))
-  ctx.slots.inject('shell.overlay', () => ctx.slots.register({
-    name: 'shell.overlay', id: 'dsh-learning-drawer', order: 40,
+  ctx.slots.inject('shell.right-sidebar', () => ctx.slots.register({
+    name: 'shell.right-sidebar', id: 'dsh-learning-panel', order: 40,
   }, () => <LearnerDrawer controller={controller} />))
 }

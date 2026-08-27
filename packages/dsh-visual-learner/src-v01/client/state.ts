@@ -20,10 +20,8 @@ export interface RpcCarrier {
 
 interface DrawerState {
   open: boolean
-  narrowNotice: boolean
   locale: Locale
   page: Page
-  width: number
   reviewDueCount: number
   project: WorkProjectViewModel | null
   projects: WorkProjectViewModel[]
@@ -31,6 +29,11 @@ interface DrawerState {
   operationLabel: string | null
   learnerError: string | null
   downloadNotice: string | null
+}
+
+export interface DockController {
+  open(): void
+  close(): void
 }
 
 function initialLocale(): Locale {
@@ -44,22 +47,22 @@ function operationId(): string {
 }
 
 export class DrawerController {
-  private state: DrawerState = { open: false, narrowNotice: false, locale: initialLocale(), page: { kind: 'overview' }, width: Number(window.localStorage.getItem('dsh-learning.width')) || 520, reviewDueCount: 0, project: null, projects: [], operation: 'idle', operationLabel: null, learnerError: null, downloadNotice: null }
+  private state: DrawerState = { open: false, locale: initialLocale(), page: { kind: 'overview' }, reviewDueCount: 0, project: null, projects: [], operation: 'idle', operationLabel: null, learnerError: null, downloadNotice: null }
   private readonly listeners = new Set<() => void>()
   private readonly drafts = new Map<string, string>()
   private nativeSessionId: string | null = null
   readonly trigger = { current: null as HTMLButtonElement | null }
 
-  constructor(private readonly rpc?: RpcCarrier) {}
+  constructor(private readonly rpc?: RpcCarrier, private readonly dock?: DockController) {}
   getSnapshot = () => this.state
   subscribe = (listener: () => void) => { this.listeners.add(listener); return () => this.listeners.delete(listener) }
   private set(next: Partial<DrawerState>) { this.state = { ...this.state, ...next }; for (const listener of this.listeners) listener() }
-  open() { if (window.innerWidth < 768) this.set({ narrowNotice: true, open: false }); else this.set({ open: true, narrowNotice: false }) }
-  close() { this.set({ open: false }); queueMicrotask(() => this.trigger.current?.focus()) }
-  dismissNarrow() { this.set({ narrowNotice: false }); queueMicrotask(() => this.trigger.current?.focus()) }
+  open() { this.dock?.open(); this.set({ open: true }) }
+  close() { this.set({ open: false }); this.dock?.close(); queueMicrotask(() => this.trigger.current?.focus()) }
+  yieldToDockPeer() { this.set({ open: false }); queueMicrotask(() => this.trigger.current?.focus()) }
+  toggle() { if (this.state.open) this.close(); else this.open() }
   navigate(page: Page) { this.set({ page, learnerError: null, downloadNotice: null }) }
   setLocale(locale: Locale) { window.localStorage.setItem('dsh-learning.locale', locale); this.set({ locale }) }
-  setWidth(width: number) { const max = Math.min(720, window.innerWidth / 2); const bounded = Math.max(380, Math.min(max, width)); window.localStorage.setItem('dsh-learning.width', String(bounded)); this.set({ width: bounded }) }
   getDraft(key: string) { return this.drafts.get(key) ?? '' }
   setDraft(key: string, value: string) { this.drafts.set(key, value) }
   openProject(project: WorkProjectViewModel) { this.set({ project, page: { kind: 'route', projectId: project.project.projectId }, learnerError: null }) }

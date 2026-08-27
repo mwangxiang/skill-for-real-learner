@@ -1,8 +1,8 @@
 {
   "name": "@mwangxiang/dsh-visual-learner",
-  "version": "0.1.0-alpha.18",
+  "version": "0.1.0-alpha.21",
   "private": true,
-  "description": "Native work-delivery, asset-distillation, and optional-learning plugin for official DSH Web",
+  "description": "Pilot-native work-delivery, asset-distillation, and optional-learning sidebar for DeepSeek Harness",
   "type": "module",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",

@@ -18,35 +18,40 @@ async function clientSource(): Promise<string> {
 }
 
 describe('M2 Client contract', () => {
-  it('registers only the additive header entry and shell overlay', async () => {
+  it('registers only the Pilot utility entry and docked right sidebar', async () => {
     const source = await readFile(join(clientRoot, 'index.tsx'), 'utf8')
     const registered = [...source.matchAll(/name:\s*'([^']+)'/gu)].map(match => match[1])
-    expect(registered).toEqual(['conversation.session.header.actions', 'shell.overlay'])
+    expect(registered).toEqual(['conversation.session.header.utilities', 'shell.right-sidebar'])
     expect(source).not.toMatch(/name:\s*'(?:root|sidebar|conversation|conversation\.session)'/u)
+    expect(source).toContain('openRightSidebar')
+    expect(source).toContain('closeRightSidebar')
   })
 
   it('does not read native conversation content or persist project truth in localStorage', async () => {
     const source = await clientSource()
     expect(source).not.toMatch(/lastAssistantText|ConversationSnapshot|\.nodes\b|assistantText/u)
     const storageWrites = [...source.matchAll(/localStorage\.setItem\(([^,]+)/gu)].map(match => match[1])
-    expect(storageWrites).toEqual(expect.arrayContaining(["'dsh-learning.locale'", "'dsh-learning.width'"]))
+    expect(storageWrites).toEqual(["'dsh-learning.locale'"])
     expect(storageWrites.join(' ')).not.toMatch(/project|review|activity|route|step/u)
   })
 
   it('implements all five generic card types and the accessibility geometry contract', async () => {
     const source = await clientSource()
     for (const kind of ['question', 'guided-learning', 'decision', 'offline-task', 'review']) expect(source).toContain(`'${kind}'`)
-    expect(source).toContain('role="separator"')
-    expect(source).toContain('aria-orientation="vertical"')
+    expect(source).toContain('data-dsh-visual-learner-pilot-panel="true"')
+    expect(source).toContain('MutationObserver')
+    expect(source).toContain('yieldToDockPeer')
     expect(source).toContain('data-primary-action')
     expect(source).toContain('nativeEvent.isComposing')
     expect(source).not.toContain('aria-modal="true"')
     const styles = await readFile(join(clientRoot, 'styles.ts'), 'utf8')
     expect(styles).toContain('box-sizing:border-box')
-    expect(styles).toContain('max-width:min(640px,50vw)')
-    expect(styles).toContain('@media(max-width:767px)')
+    expect(styles).toContain('width:100%')
+    expect(styles).toContain('height:100%')
+    expect(styles).not.toContain('position:fixed')
+    expect(styles).not.toContain('box-shadow:-12px')
     expect(styles).toContain('@media(forced-colors:active)')
-    expect(styles).toContain('@media(prefers-reduced-motion:no-preference)')
+    expect(styles).not.toContain('@keyframes dsh-learning-slide')
   })
 
   it('never falls back to fixture projects in production pages', async () => {

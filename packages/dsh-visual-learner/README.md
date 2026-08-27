@@ -1,8 +1,15 @@
 # DSH Work & Learning
 
-> Internal test build: `0.1.0-alpha.18`
+> Pilot-native candidate: `0.1.0-alpha.21`
+> Frozen partner baseline: `0.1.0-alpha.18`
 
-An installable Host + Client Bundle for the official DeepSeek Harness Web Profile `0.1.1-rc.2`. It adds one session-header action and a right-side non-modal drawer while preserving the native sidebar, conversation, composer, settings, and model controls.
+An installable Host + Client Bundle for Pilot Harness
+`v0.1.0-rc.7-pilot.2`. It adds one session-header utility and a native docked
+right sidebar while preserving the native sidebar, conversation, composer,
+settings, model controls, and Files plugin. The Host plane remains compatible
+with the official DeepSeek Harness `0.1.1-rc.2` baseline, but the alpha.21 UI
+requires Pilot's `conversation.session.header.utilities` and
+`shell.right-sidebar` contracts.
 
 The product order is fixed:
 
@@ -18,9 +25,13 @@ Chinese is the primary language and English is fully available. Ordinary users d
 
 ```powershell
 $env:DSH_HOME = 'C:\path\to\isolated-dsh-home'
-dsh plugin --profile web add C:\path\to\mwangxiang-dsh-visual-learner-0.1.0-alpha.18.tgz
+dsh plugin --profile web add C:\path\to\mwangxiang-dsh-visual-learner-0.1.0-alpha.21.tgz
 dsh web --no-open --port 3080
 ```
+
+When another Pilot dock tool such as Files is open, Visual Learner yields that
+track instead of rendering two wide tools in one column. Close Files before
+opening Work Space if you want to switch tools.
 
 Remove only the Bundle:
 
