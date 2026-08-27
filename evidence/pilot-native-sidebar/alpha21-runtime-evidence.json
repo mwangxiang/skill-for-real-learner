@@ -1,0 +1,71 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-08-27T20:56:00+08:00",
+  "candidate": {
+    "package": "@mwangxiang/dsh-visual-learner",
+    "version": "0.1.0-alpha.21",
+    "tarball": "release/mwangxiang-dsh-visual-learner-0.1.0-alpha.21.tgz",
+    "bytes": 305183,
+    "sha256": "F73B61C865B7C13288708EDF84D84B8B52B9F44E079D6F9F015E2419095B4451"
+  },
+  "host": {
+    "repository": "https://github.com/op7418/pilot-harness",
+    "commit": "d1fa9c15fc00c05ea6931aafd724554ca34d5a6d",
+    "tag": "v0.1.0-rc.7-pilot.2",
+    "sourceWorktreeCleanAfterBuild": true,
+    "fullBuildPassed": true
+  },
+  "gates": {
+    "pilotAbiFilesMatched": 4,
+    "pluginTestFilesPassed": 14,
+    "pluginTestsPassed": 41,
+    "pluginTypecheckPassed": true,
+    "pluginHostBuildPassed": true,
+    "pluginClientBuildPassed": true,
+    "installedProfileVersion": "0.1.0-alpha.21",
+    "nativeSessionCreatedWithKeylessReplay": true,
+    "browserPageErrors": 0
+  },
+  "runtimeGeometry": {
+    "viewport": { "width": 1280, "height": 720 },
+    "panel": { "x": 960, "y": 0, "width": 320, "height": 720 },
+    "slot": "shell.right-sidebar",
+    "cssPosition": "static",
+    "overlayContainsPanel": false,
+    "nativeComposer": { "x": 296.8000183105469, "y": 641.2000122070312, "width": 638.4000244140625, "height": 28 }
+  },
+  "conflictProbes": {
+    "workspaceThenFiles": {
+      "before": { "visualLearnerPanels": 1 },
+      "after": { "visualLearnerPanels": 0, "worktreePanels": 1, "workspacePressed": false, "filesPressed": true }
+    },
+    "filesThenWorkspace": {
+      "after": { "visualLearnerPanels": 0, "workspacePressed": false, "filesPressed": true }
+    }
+  },
+  "screenshots": {
+    "rejectedAlpha19": {
+      "file": "evidence/pilot-native-sidebar/alpha19-pilot-dock-open.png",
+      "bytes": 70790,
+      "sha256": "B5B0F92A7369BDD63C37AEFF4266C9D4227AD84CE12A7A3687077EE9B75568BD"
+    },
+    "admittedAlpha21": {
+      "file": "evidence/pilot-native-sidebar/alpha21-pilot-dock-open.png",
+      "bytes": 70777,
+      "sha256": "1EC3E1900E33AB1A4162A90279BBBADA43AE852B1BB073C39BA557157A3D261F"
+    }
+  },
+  "preservedFailures": [
+    "Pilot dependency install initially failed while downloading Electron from the default source.",
+    "Electron then failed with ENOSPC because its cache targeted a full C drive; cache and temp were moved to explicit D-drive paths.",
+    "alpha.19 allowed Worktree and Visual Learner to render simultaneously in one dock track.",
+    "alpha.20 added a peer-yield gate but assumed one wrapper per list entry; the real slot uses one shared container.",
+    "alpha.21 observes siblings in the shared slot container and passed both dock-order conflict probes."
+  ],
+  "boundaries": [
+    "P4 business-flow and artifact-download validation is not complete.",
+    "The keyless replay model proves session and UI integration, not real-model work quality.",
+    "Browser warnings were connection retries caused by deliberate host restarts; no page error was observed.",
+    "The C-drive cache recovery move is recorded outside the repository and can be reversed."
+  ]
+}
