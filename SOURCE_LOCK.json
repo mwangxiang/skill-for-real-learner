@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "recorded_at": "2026-08-24",
+  "recorded_at": "2026-08-27",
   "sources": {
     "learner": {
       "repository": "https://github.com/MingStudentSE/skill-for-real-learner",
@@ -27,6 +27,18 @@
       "version": "0.1.1-rc.2",
       "tag": "dsh-v0.1.1-rc.2",
       "commit": "b150a551b8d465e31e418e1b2eaf5e79bbb7d28e"
+    },
+    "pilot_harness": {
+      "repository": "https://github.com/op7418/pilot-harness",
+      "version": "0.1.0-rc.7-pilot.2",
+      "tag": "v0.1.0-rc.7-pilot.2",
+      "commit": "d1fa9c15fc00c05ea6931aafd724554ca34d5a6d",
+      "abi_files": {
+        "packages/client/ui-layout/src/client/index.ts": "0411a902b286cf6573dd61977930297c4b1d0a6b846401c49be2686d245d1aca",
+        "packages/client/ui-layout/src/client/service.ts": "deff22d91af389f95ef55ac95bbb508d7449d3f3d40fe4bb0264dce5f9fbf3d1",
+        "packages/client/ui-conversation/src/client/contract/slots.ts": "f886a6589db400fa014b3c0884b6ceebe08aae8cfd0ef423f58421a3cb012bc1",
+        "packages/workspace/ui-worktree/src/client/index.ts": "258faee8702cafe44b7b3b6bc84ab91db923070c2d29be6696da7dd2ceac30d4"
+      }
     }
   },
   "teach_core_comparison": {

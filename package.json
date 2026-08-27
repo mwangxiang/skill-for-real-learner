@@ -9,7 +9,8 @@
     "typecheck": "pnpm --filter @mwangxiang/dsh-visual-learner typecheck",
     "test": "pnpm run test:pure-skills",
     "test:surface": "node scripts/smoke-learner-surface.mjs",
-    "test:pure-skills": "vitest run tests/dsh-pure-skills.smoke.spec.ts"
+    "test:pure-skills": "vitest run tests/dsh-pure-skills.smoke.spec.ts",
+    "test:pilot-abi": "node scripts/verify-pilot-abi.mjs"
   },
   "engines": {
     "node": "^22.19.0 || >=24.0.0"
