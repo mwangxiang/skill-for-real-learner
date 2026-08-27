@@ -42,4 +42,27 @@ describe('Pilot dock controller', () => {
     expect(controller.getSnapshot().open).toBe(false)
     expect(dock.close).not.toHaveBeenCalled()
   })
+
+  it('closes and resets the workspace when navigation leaves a strict session', () => {
+    const dock = { open: vi.fn(), close: vi.fn() }
+    const controller = new DrawerController(undefined, dock)
+    controller.bindNativeSession('session-a')
+    controller.navigate({ kind: 'reviews' })
+    controller.open()
+
+    controller.bindNativeSession(null)
+
+    expect(controller.getSnapshot().open).toBe(false)
+    expect(controller.getSnapshot().page).toEqual({ kind: 'overview' })
+    expect(controller.getSnapshot().projects).toEqual([])
+    expect(dock.close).toHaveBeenCalledTimes(1)
+  })
+
+  it('does not reset when the same strict session is observed again', () => {
+    const controller = new DrawerController()
+    controller.bindNativeSession('session-a')
+    controller.navigate({ kind: 'reviews' })
+    controller.bindNativeSession('session-a')
+    expect(controller.getSnapshot().page).toEqual({ kind: 'reviews' })
+  })
 })

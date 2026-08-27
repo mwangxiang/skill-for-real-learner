@@ -25,6 +25,18 @@ describe('M2 Client contract', () => {
     expect(source).not.toMatch(/name:\s*'(?:root|sidebar|conversation|conversation\.session)'/u)
     expect(source).toContain('openRightSidebar')
     expect(source).toContain('closeRightSidebar')
+    expect(source).toContain('<LearnerDrawer controller={controller} {...props}')
+  })
+
+  it('binds workspace truth to the current non-blank native session', async () => {
+    const drawer = await readFile(join(clientRoot, 'components', 'LearnerDrawer.tsx'), 'utf8')
+    const header = await readFile(join(clientRoot, 'components', 'HeaderAction.tsx'), 'utf8')
+    const state = await readFile(join(clientRoot, 'state.ts'), 'utf8')
+    expect(drawer).toContain('sessions.byId[current]?.blank === false')
+    expect(drawer).toContain('controller.bindNativeSession(currentStrictSession)')
+    expect(header).not.toContain('setNativeSession')
+    expect(state).toContain('bindNativeSession(id: string | null)')
+    expect(state).toContain('this.nativeSessionId !== requestedSession')
   })
 
   it('does not read native conversation content or persist project truth in localStorage', async () => {

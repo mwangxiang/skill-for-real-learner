@@ -1,4 +1,5 @@
 import { useEffect, useRef } from 'react'
+import type { PropsRuntime } from '@deepseek-ai/dsh-client-ui-slots'
 import type {} from '@deepseek-ai/dsh-client-ui-layout/client'
 import { copy } from '../copy.ts'
 import { DrawerController, useDrawer, type Page } from '../state.ts'
@@ -14,8 +15,15 @@ function backFor(page: Page, controller: DrawerController): (() => void) | undef
   return undefined
 }
 
-export function LearnerDrawer({ controller }: { controller: DrawerController }) {
+export type LearnerDrawerProps = PropsRuntime<'shell.right-sidebar'> & { controller: DrawerController }
+
+export function LearnerDrawer({ controller, useSessions }: LearnerDrawerProps) {
   const state = useDrawer(controller); const t = copy[state.locale]; const panelRef = useRef<HTMLElement | null>(null)
+  const currentStrictSession = useSessions((sessions) => {
+    const current = sessions.current
+    return current !== undefined && sessions.byId[current]?.blank === false ? String(current) : null
+  })
+  useEffect(() => { controller.bindNativeSession(currentStrictSession) }, [controller, currentStrictSession])
   useEffect(() => { const handler = (event: KeyboardEvent) => { if (event.key === 'Escape' && state.open) { event.preventDefault(); controller.close() } }; window.addEventListener('keydown', handler); return () => window.removeEventListener('keydown', handler) }, [controller, state.open])
   useEffect(() => {
     if (!state.open) return

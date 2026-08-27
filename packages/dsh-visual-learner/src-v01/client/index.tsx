@@ -39,5 +39,5 @@ export function apply(ctx: ClientContext): void {
   }, props => <LearnerHeaderAction controller={controller} {...props} />))
   ctx.slots.inject('shell.right-sidebar', () => ctx.slots.register({
     name: 'shell.right-sidebar', id: 'dsh-learning-panel', order: 40,
-  }, () => <LearnerDrawer controller={controller} />))
+  }, props => <LearnerDrawer controller={controller} {...props} />))
 }

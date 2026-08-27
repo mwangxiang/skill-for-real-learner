@@ -66,7 +66,19 @@ export class DrawerController {
   getDraft(key: string) { return this.drafts.get(key) ?? '' }
   setDraft(key: string, value: string) { this.drafts.set(key, value) }
   openProject(project: WorkProjectViewModel) { this.set({ project, page: { kind: 'route', projectId: project.project.projectId }, learnerError: null }) }
-  setNativeSession(id: string) { if (this.nativeSessionId === id) return; this.nativeSessionId = id; void this.refreshProjects() }
+  bindNativeSession(id: string | null) {
+    if (this.nativeSessionId === id) return
+    this.nativeSessionId = id
+    this.drafts.clear()
+    if (id === null) {
+      const wasOpen = this.state.open
+      this.set({ open: false, page: { kind: 'overview' }, reviewDueCount: 0, project: null, projects: [], operation: 'idle', operationLabel: null, learnerError: null, downloadNotice: null })
+      if (wasOpen) this.dock?.close()
+      return
+    }
+    this.set({ page: { kind: 'overview' }, reviewDueCount: 0, project: null, projects: [], operation: 'idle', operationLabel: null, learnerError: null, downloadNotice: null })
+    void this.refreshProjects()
+  }
 
   private async call<T>(endpoint: string, payload: object): Promise<WorkRpcResult<T>> {
     if (this.rpc === undefined || this.nativeSessionId === null) return { ok: false, error: { code: 'INVALID_REQUEST', learnerMessage: '请先在 Harness 中打开一个工作目录。' } }
@@ -81,8 +93,9 @@ export class DrawerController {
 
   async refreshProjects(): Promise<void> {
     if (this.rpc === undefined || this.nativeSessionId === null) return
+    const requestedSession = this.nativeSessionId
     const result = await this.call<{ schemaVersion: '0.3.0'; projects: WorkProjectViewModel[] }>('work-panel/list', {})
-    if (!result.ok) return
+    if (!result.ok || this.nativeSessionId !== requestedSession) return
     const reviewDueCount = result.value.projects.filter(item => item.learning.offered && !item.learning.selected).length
     this.set({ projects: result.value.projects, reviewDueCount })
   }

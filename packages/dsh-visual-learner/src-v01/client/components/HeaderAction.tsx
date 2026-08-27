@@ -1,4 +1,3 @@
-import { useEffect } from 'react'
 import type { PropsRuntime } from '@deepseek-ai/dsh-client-ui-slots'
 import type {} from '@deepseek-ai/dsh-client-ui-conversation/client'
 import { copy } from '../copy.ts'
@@ -6,8 +5,7 @@ import { DrawerController, useDrawer } from '../state.ts'
 
 export type LearnerHeaderActionProps = PropsRuntime<'conversation.session.header.utilities'>
 
-export function LearnerHeaderAction({ controller, sessionId }: { controller: DrawerController } & LearnerHeaderActionProps) {
-  useEffect(() => { controller.setNativeSession(String(sessionId)) }, [controller, sessionId])
+export function LearnerHeaderAction({ controller }: { controller: DrawerController } & LearnerHeaderActionProps) {
   const state = useDrawer(controller)
   const t = copy[state.locale]
   const label = state.reviewDueCount > 0 ? t.dueCount(state.reviewDueCount) : t.open
