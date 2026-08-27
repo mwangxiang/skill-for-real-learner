@@ -1,14 +1,15 @@
 # Pilot-native Visual Learner alpha.21 test report
 
-## Verdict
+## Superseded verdict
 
-P0-P3 pass. The existing alpha.18 work/asset/learning flow now renders as a
-Pilot-native `shell.right-sidebar` tool with its entry in
-`conversation.session.header.utilities`. Native conversation, composer,
-trajectory, model controls, details, and Files remain owned by Pilot.
+**Rejected on 2026-08-27 after the first real 1920×1080 Electron desktop
+inspection.** The earlier P0–P3 pass statement below is preserved as the
+historical candidate verdict, not current authority. See
+`evidence/pilot-desktop-audit-20260827/AUDIT.md`.
 
-Alpha.21 is still a candidate rather than a partner release because P4 has not
-run a real supported work request through artifact download.
+Alpha.21's absolute bottom navigation escaped its static panel and covered the
+whole window; Pilot exposed no right-sidebar resize handle; panel/session state
+also survived into a blank native session. These are release-blocking failures.
 
 ## Frozen identities
 

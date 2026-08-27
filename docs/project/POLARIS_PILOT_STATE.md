@@ -1,8 +1,8 @@
 # Polaris × Pilot Harness project state
 
-> Status: active candidate
-> Intent epoch: `pilot-native-sidebar-v1`
-> Candidate branch: `codex/pilot-native-sidebar`
+> Status: alpha.21 rejected; alpha.22 active candidate
+> Intent epoch: `pilot-native-sidebar-v2`
+> Candidate branch: `codex/pilot-native-sidebar-alpha22`
 > Authority branch: `codex/dsh-visual-plugin` at `a3f8f6a`
 > Frozen partner release: `0.1.0-alpha.18`
 
@@ -29,19 +29,21 @@ The exact Pilot ABI file hashes live in `SOURCE_LOCK.json` and are checked by
 
 | Leaf | Allowed change | Gate | State |
 |---|---|---|---|
-| P0 | Lock Pilot ABI and project intent | hashes plus slot witnesses | passed |
-| P1 | Replace header action + overlay with utility + right dock | client contract, controller test, typecheck | passed |
-| P2 | Build alpha.21 package | host/client build and package inspection | passed |
-| P3 | Mount package in isolated Pilot desktop profile | real UI screenshot, open/close, native conversation preserved | passed |
-| P4 | Exercise one real work request and artifact download | RPC/project identity and output witness | pending |
+| R0 | Freeze desktop failure and supersede alpha.21 | 1920×1080 Electron screenshot plus source audit | passed |
+| R1 | Contain header/body/navigation inside the dock | descendant bounds stay inside panel at every tab | pending |
+| R2 | Add Pilot-owned right-sidebar resizing | mouse + keyboard drag, 240–560 px, concession tests | pending |
+| R3 | Bind panel state to the current strict session | blank/current/session-switch matrix | pending |
+| R4 | Admit alpha.22 in real Electron desktop | 1280×720, 1600×900, 1920×1080, 200% zoom | pending |
+| P4 | Exercise one real work request and artifact download | RPC/project identity and output witness | blocked by R1–R4 |
 
 ## Candidate / authority boundary
 
-- Files in this branch and any alpha.21 package are candidates. Alpha.19 and
-  alpha.20 are rejected runtime candidates: alpha.19 had no peer-yield gate;
-  alpha.20 assumed one wrapper per list entry, while Pilot renders list entries
-  as siblings in one shared `data-slot` container.
-- Green unit tests do not upgrade alpha.21 to a partner release.
+- Files in this branch and any alpha.22 package are candidates. Alpha.19,
+  alpha.20, and alpha.21 are rejected runtime candidates. Alpha.21 passed a
+  narrow browser probe but failed the real desktop screen: its absolute footer
+  escaped the static panel, the host had no right-sidebar resize contract, and
+  root-scoped panel state survived a switch to a blank session.
+- Green unit tests do not upgrade alpha.22 to a partner release.
 - P3 is the first runtime-admission gate because official Harness rc.2 does
   not declare Pilot's `shell.right-sidebar` layout contract.
 - The alpha.18 release and its partner feedback package remain immutable.
@@ -50,7 +52,7 @@ The exact Pilot ABI file hashes live in `SOURCE_LOCK.json` and are checked by
 
 ## Current recovery point
 
-Run the ABI verifier, focused client tests, full test suite, typecheck, and both
-build faces. P0-P3 now pass at alpha.21. Resume at P4 with a real supported work
-request and downloadable artifact; do not use the keyless replay model for that
-business-flow verdict. The clean Pilot reference checkout remains unchanged.
+Read `evidence/pilot-desktop-audit-20260827/AUDIT.md`, then resume at R1. The
+Pilot integration candidate lives on local branch
+`codex/visual-learner-right-sidebar-resize`; do not push it to the third-party
+remote. P4 remains blocked until R1–R4 pass in the Electron desktop.
