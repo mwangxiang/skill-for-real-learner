@@ -57,7 +57,7 @@ export class DrawerController {
   getSnapshot = () => this.state
   subscribe = (listener: () => void) => { this.listeners.add(listener); return () => this.listeners.delete(listener) }
   private set(next: Partial<DrawerState>) { this.state = { ...this.state, ...next }; for (const listener of this.listeners) listener() }
-  open() { this.dock?.open(); this.set({ open: true }) }
+  open() { this.dock?.open(); this.set({ open: true }); if (this.nativeSessionId !== null) void this.refreshProjects() }
   close() { this.set({ open: false }); this.dock?.close(); queueMicrotask(() => this.trigger.current?.focus()) }
   yieldToDockPeer() { this.set({ open: false }); queueMicrotask(() => this.trigger.current?.focus()) }
   toggle() { if (this.state.open) this.close(); else this.open() }

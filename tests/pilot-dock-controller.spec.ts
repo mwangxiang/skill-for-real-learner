@@ -65,4 +65,17 @@ describe('Pilot dock controller', () => {
     controller.bindNativeSession('session-a')
     expect(controller.getSnapshot().page).toEqual({ kind: 'reviews' })
   })
+
+  it('retries project discovery whenever the workspace is opened', async () => {
+    const rpc = {
+      call: vi.fn().mockResolvedValue({
+        ok: true,
+        value: { ok: true, value: { schemaVersion: '0.3.0', projects: [] } },
+      }),
+    }
+    const controller = new DrawerController(rpc)
+    controller.bindNativeSession('session-a')
+    controller.open()
+    await vi.waitFor(() => { expect(rpc.call).toHaveBeenCalledTimes(2) })
+  })
 })
