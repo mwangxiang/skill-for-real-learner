@@ -38,6 +38,22 @@
         "packages/client/ui-layout/src/client/service.ts": "deff22d91af389f95ef55ac95bbb508d7449d3f3d40fe4bb0264dce5f9fbf3d1",
         "packages/client/ui-conversation/src/client/contract/slots.ts": "f886a6589db400fa014b3c0884b6ceebe08aae8cfd0ef423f58421a3cb012bc1",
         "packages/workspace/ui-worktree/src/client/index.ts": "258faee8702cafe44b7b3b6bc84ab91db923070c2d29be6696da7dd2ceac30d4"
+      },
+      "alpha23_integration": {
+        "base_commit": "d1fa9c15fc00c05ea6931aafd724554ca34d5a6d",
+        "local_runtime_commit": "059c09cd0",
+        "patch": "integrations/pilot-harness/patches/0001-feat-ui-layout-resize-docked-workspace-sidebar.patch",
+        "patch_sha256": "1bd722cbead4d23a4a3641b013a43fc13f14d93c4ed28e694625e54938cdb1fb",
+        "files": {
+          "packages/client/ui-layout/src/client/index.ts": "0411a902b286cf6573dd61977930297c4b1d0a6b846401c49be2686d245d1aca",
+          "packages/client/ui-layout/src/client/service.ts": "6b7b08a92b160f616b13476afa3f4a192cff076b78c5ea4c44bd9c36a6f04243",
+          "packages/client/ui-layout/src/client/AppFrame.tsx": "c3c81dcf7ffa86a0dee7aed43b4009c4c69d271e88664a2b012a385cc26f5018",
+          "packages/client/ui-layout/src/client/AppFrame.module.css": "39e5452eae44320b98111b162946abc994e09d101932e0e8d211e3e71609d528",
+          "packages/client/ui-layout/src/client/stores.ts": "dd360ca5d72d8dc8e9b6c0906a00c3bc2d2f1ce027296aa55b9eb58e97e45b83",
+          "packages/client/ui-layout/src/client/columns.ts": "d57ff4f3f0379d2489ca22ace2ebcbb7ed74a3f2c44e527e4088d9c1defcda53",
+          "packages/client/ui-conversation/src/client/contract/slots.ts": "f886a6589db400fa014b3c0884b6ceebe08aae8cfd0ef423f58421a3cb012bc1",
+          "packages/workspace/ui-worktree/src/client/index.ts": "258faee8702cafe44b7b3b6bc84ab91db923070c2d29be6696da7dd2ceac30d4"
+        }
       }
     }
   },

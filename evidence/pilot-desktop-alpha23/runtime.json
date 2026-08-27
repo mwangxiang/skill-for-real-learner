@@ -1,0 +1,143 @@
+{
+  "ok": true,
+  "version": "0.1.0-alpha.23",
+  "observations": [
+    {
+      "label": "1280x720",
+      "panelBox": {
+        "x": 960,
+        "y": 44,
+        "width": 320,
+        "height": 676
+      },
+      "navBox": {
+        "x": 961,
+        "y": 664,
+        "width": 319,
+        "height": 56
+      },
+      "frameOverflow": {
+        "clientWidth": 1280,
+        "scrollWidth": 1280,
+        "clientHeight": 676,
+        "scrollHeight": 676
+      }
+    },
+    {
+      "label": "1600x900",
+      "panelBox": {
+        "x": 1280,
+        "y": 44,
+        "width": 320,
+        "height": 856
+      },
+      "navBox": {
+        "x": 1281,
+        "y": 844,
+        "width": 319,
+        "height": 56
+      },
+      "frameOverflow": {
+        "clientWidth": 1600,
+        "scrollWidth": 1600,
+        "clientHeight": 856,
+        "scrollHeight": 856
+      }
+    },
+    {
+      "label": "1920x1080",
+      "panelBox": {
+        "x": 1600,
+        "y": 44,
+        "width": 320,
+        "height": 1036
+      },
+      "navBox": {
+        "x": 1601,
+        "y": 1024,
+        "width": 319,
+        "height": 56
+      },
+      "frameOverflow": {
+        "clientWidth": 1920,
+        "scrollWidth": 1920,
+        "clientHeight": 1036,
+        "scrollHeight": 1036
+      }
+    },
+    {
+      "label": "pointer-resize",
+      "panelBox": {
+        "x": 1476,
+        "y": 44,
+        "width": 444,
+        "height": 1036
+      },
+      "navBox": {
+        "x": 1477,
+        "y": 1024,
+        "width": 443,
+        "height": 56
+      },
+      "frameOverflow": {
+        "clientWidth": 1920,
+        "scrollWidth": 1920,
+        "clientHeight": 1036,
+        "scrollHeight": 1036
+      }
+    },
+    {
+      "label": "keyboard-resize",
+      "panelBox": {
+        "x": 1428,
+        "y": 44,
+        "width": 492,
+        "height": 1036
+      },
+      "navBox": {
+        "x": 1429,
+        "y": 1024,
+        "width": 491,
+        "height": 56
+      },
+      "frameOverflow": {
+        "clientWidth": 1920,
+        "scrollWidth": 1920,
+        "clientHeight": 1036,
+        "scrollHeight": 1036
+      }
+    },
+    {
+      "label": "zoom-200",
+      "clientWidth": 960,
+      "scrollWidth": 960,
+      "rightCollapsed": false
+    },
+    {
+      "label": "blank-session",
+      "panelCount": 0
+    },
+    {
+      "label": "final-desktop",
+      "panelBox": {
+        "x": 1600.1875,
+        "y": 44,
+        "width": 319.8125,
+        "height": 1036
+      },
+      "navBox": {
+        "x": 1601,
+        "y": 1024,
+        "width": 319,
+        "height": 56
+      },
+      "frameOverflow": {
+        "clientWidth": 1920,
+        "scrollWidth": 1920,
+        "clientHeight": 1036,
+        "scrollHeight": 1036
+      }
+    }
+  ],
+  "errors": []
+}

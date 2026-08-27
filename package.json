@@ -10,7 +10,8 @@
     "test": "pnpm run test:pure-skills",
     "test:surface": "node scripts/smoke-learner-surface.mjs",
     "test:pure-skills": "vitest run tests/dsh-pure-skills.smoke.spec.ts",
-    "test:pilot-abi": "node scripts/verify-pilot-abi.mjs"
+    "test:pilot-abi": "node scripts/verify-pilot-abi.mjs",
+    "test:pilot-desktop": "node scripts/smoke-pilot-desktop-alpha23.mjs"
   },
   "engines": {
     "node": "^22.19.0 || >=24.0.0"

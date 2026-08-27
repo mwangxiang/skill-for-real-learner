@@ -1,0 +1,322 @@
+From 059c09cd0c5ec17870abe58eadfd1c14aa3ffa8c Mon Sep 17 00:00:00 2001
+From: Claude Code User <claude-code@example.com>
+Date: Thu, 27 Aug 2026 23:14:27 +0800
+Subject: [PATCH] feat(ui-layout): resize docked workspace sidebar
+
+---
+ .../ui-layout/src/client/AppFrame.module.css  |  6 +++++
+ .../client/ui-layout/src/client/AppFrame.tsx  | 26 ++++++++++++++++++-
+ .../client/ui-layout/src/client/columns.ts    |  4 +--
+ .../client/ui-layout/src/client/service.ts    |  7 +++++
+ .../client/ui-layout/src/client/stores.ts     |  4 ++-
+ .../ui-layout/tests/app-frame.client.spec.tsx | 21 +++++++++++++++
+ .../ui-layout/tests/apply.client.spec.ts      |  2 +-
+ .../tests/layout-store.client.spec.ts         | 11 +++++---
+ .../ui-layout/tests/service.client.spec.ts    |  4 +++
+ 9 files changed, 77 insertions(+), 8 deletions(-)
+
+diff --git a/packages/client/ui-layout/src/client/AppFrame.module.css b/packages/client/ui-layout/src/client/AppFrame.module.css
+index abfd432e4..de500f6bc 100644
+--- a/packages/client/ui-layout/src/client/AppFrame.module.css
++++ b/packages/client/ui-layout/src/client/AppFrame.module.css
+@@ -81,6 +81,7 @@
+   }
+ }
+ 
++.handle[data-side='right-sidebar']::after,
+ .handle[data-side='details']::after {
+   content: '';
+   position: absolute;
+@@ -101,12 +102,17 @@
+     background var(--ds-transition-duration-slow) var(--ds-ease-in-out);
+ }
+ 
++.rightSidebarCol:hover ~ .handle[data-side='right-sidebar']::after,
+ .detailsCol:hover ~ .handle[data-side='details']::after,
++.handle[data-side='right-sidebar']:hover::after,
++.handle[data-side='right-sidebar'][data-dragging='true']::after,
+ .handle[data-side='details']:hover::after,
+ .handle[data-side='details'][data-dragging='true']::after {
+   opacity: 1;
+ }
+ 
++.handle[data-side='right-sidebar']:hover::after,
++.handle[data-side='right-sidebar'][data-dragging='true']::after,
+ .handle[data-side='details']:hover::after,
+ .handle[data-side='details'][data-dragging='true']::after {
+   background: var(--dsw-alias-button-floating-hover);
+diff --git a/packages/client/ui-layout/src/client/AppFrame.tsx b/packages/client/ui-layout/src/client/AppFrame.tsx
+index ff801e2b7..8e9982354 100644
+--- a/packages/client/ui-layout/src/client/AppFrame.tsx
++++ b/packages/client/ui-layout/src/client/AppFrame.tsx
+@@ -42,7 +42,7 @@ function RightSidebarColumn(props: { children?: ReactNode }) {
+  * One drag handle: pointer capture, rAF-throttled dx reports against the drag-start origin.
+  * `side` keys the hover-reveal CSS to the owning column.
+  */
+-function DragHandle(props: { side: 'sidebar' | 'details'; left: number; onStart: () => void; onDrag: (dx: number) => void; onEnd: () => void }) {
++function DragHandle(props: { side: 'sidebar' | 'right-sidebar' | 'details'; left: number; onStart: () => void; onDrag: (dx: number) => void; onEnd: () => void }) {
+   const [dragging, setDragging] = useState(false)
+   const origin = useRef(0)
+   const latest = useRef(0)
+@@ -74,6 +74,19 @@ function DragHandle(props: { side: 'sidebar' | 'details'; left: number; onStart:
+     setDragging(false)
+     callbacks.current.onEnd()
+   }, [])
++  const onKeyDown = useCallback((e: React.KeyboardEvent<HTMLDivElement>) => {
++    if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return
++    e.preventDefault()
++    const amount = e.shiftKey ? 64 : 16
++    callbacks.current.onStart()
++    callbacks.current.onDrag(e.key === 'ArrowLeft' ? -amount : amount)
++    callbacks.current.onEnd()
++  }, [])
++  const labels = {
++    sidebar: 'Resize navigation sidebar',
++    'right-sidebar': 'Resize workspace sidebar',
++    details: 'Resize details sidebar',
++  } as const
+ 
+   return (
+     <div
+@@ -81,9 +94,14 @@ function DragHandle(props: { side: 'sidebar' | 'details'; left: number; onStart:
+       style={{ left: props.left }}
+       data-side={props.side}
+       data-dragging={dragging || undefined}
++      role="separator"
++      aria-orientation="vertical"
++      aria-label={labels[props.side]}
++      tabIndex={0}
+       onPointerDown={onPointerDown}
+       onPointerMove={onPointerMove}
+       onPointerUp={onPointerUp}
++      onKeyDown={onKeyDown}
+     />
+   )
+ }
+@@ -157,12 +175,14 @@ export function AppFrame({
+   // concession-clamped panel must not jump back to the stored preference);
+   // it stays frozen for the whole gesture so dx deltas do not compound.
+   const sidebarBase = useRef(0)
++  const rightSidebarBase = useRef(0)
+   const detailsBase = useRef(0)
+   // Track-level transitions pause for the whole gesture: eased tracks would
+   // detach the column edge from the pointer (AppFrame.module.css).
+   const [dragging, setDragging] = useState(false)
+   const onDragEnd = useCallback(() => { setDragging(false) }, [])
+   const onSidebarStart = useCallback(() => { sidebarBase.current = colsRef.current.sidebar; setDragging(true) }, [])
++  const onRightSidebarStart = useCallback(() => { rightSidebarBase.current = colsRef.current.rightSidebar; setDragging(true) }, [])
+   const onDetailsStart = useCallback(() => { detailsBase.current = colsRef.current.details; setDragging(true) }, [])
+   const onSidebarDrag = useCallback((dx: number) => {
+     actions.setSidebar(sidebarBase.current + dx)
+@@ -170,6 +190,9 @@ export function AppFrame({
+   const onDetailsDrag = useCallback((dx: number) => {
+     actions.setDetails(detailsBase.current - dx)
+   }, [actions])
++  const onRightSidebarDrag = useCallback((dx: number) => {
++    actions.setRightSidebar(rightSidebarBase.current - dx)
++  }, [actions])
+ 
+   return (
+     <div
+@@ -208,6 +231,7 @@ export function AppFrame({
+       </div>
+       {/* The collapsed rail is fixed-width: no resize handle while closed. */}
+       {!sidebarCollapsed && <DragHandle side="sidebar" left={cols.sidebar} onStart={onSidebarStart} onDrag={onSidebarDrag} onEnd={onDragEnd} />}
++      {cols.rightSidebar > 0 && <DragHandle side="right-sidebar" left={viewport - cols.details - cols.rightSidebar} onStart={onRightSidebarStart} onDrag={onRightSidebarDrag} onEnd={onDragEnd} />}
+       {cols.details > 0 && <DragHandle side="details" left={viewport - cols.details} onStart={onDetailsStart} onDrag={onDetailsDrag} onEnd={onDragEnd} />}
+     </div>
+   )
+diff --git a/packages/client/ui-layout/src/client/columns.ts b/packages/client/ui-layout/src/client/columns.ts
+index dc1181e9b..39e00b513 100644
+--- a/packages/client/ui-layout/src/client/columns.ts
++++ b/packages/client/ui-layout/src/client/columns.ts
+@@ -34,8 +34,8 @@ export const SIDEBAR_AUTO_COLLAPSE = 1024
+ /** Docked workspace-tool clamp floor. */
+ export const RIGHT_SIDEBAR_MIN = 240
+ /** Docked workspace-tool clamp ceiling. */
+-export const RIGHT_SIDEBAR_MAX = 400
+-/** Docked workspace-tool width before any future resize affordance. */
++export const RIGHT_SIDEBAR_MAX = 560
++/** Docked workspace-tool width before user resize. */
+ export const RIGHT_SIDEBAR_DEFAULT = 320
+ /** Details drag clamp floor. */
+ export const DETAILS_MIN = 300
+diff --git a/packages/client/ui-layout/src/client/service.ts b/packages/client/ui-layout/src/client/service.ts
+index b60e0e4fe..e93959c0c 100644
+--- a/packages/client/ui-layout/src/client/service.ts
++++ b/packages/client/ui-layout/src/client/service.ts
+@@ -31,6 +31,8 @@ export interface ILayout {
+   openRightSidebar?(): void
+   /** Close the additive docked workspace-tool column. */
+   closeRightSidebar?(): void
++  /** Resize the additive docked workspace-tool column within its contract range. */
++  setRightSidebarWidth?(px: number): void
+ }
+ 
+ /** Cross-plugin panel-action face (ctx.layout). */
+@@ -73,6 +75,11 @@ export class LayoutController implements ILayout {
+     this.#require().closeRightSidebar()
+   }
+ 
++  /** Resize the additive docked workspace-tool column. */
++  setRightSidebarWidth(px: number): void {
++    this.#require().setRightSidebar(px)
++  }
++
+   #require(): PanelActions {
+     // Callers are UI gestures, which cannot fire before the root entry
+     // rendered (the inject hook runs in its first render) — reaching this
+diff --git a/packages/client/ui-layout/src/client/stores.ts b/packages/client/ui-layout/src/client/stores.ts
+index 5bfff9a0b..a9197b640 100644
+--- a/packages/client/ui-layout/src/client/stores.ts
++++ b/packages/client/ui-layout/src/client/stores.ts
+@@ -10,7 +10,7 @@
+ import { defineStore, type EngineStoreHandle } from '@deepseek-ai/dsh-client-runtime/client'
+ import {
+   clampWidth, DETAILS_DEFAULT, DETAILS_MAX, DETAILS_MIN,
+-  RIGHT_SIDEBAR_DEFAULT,
++  RIGHT_SIDEBAR_DEFAULT, RIGHT_SIDEBAR_MAX, RIGHT_SIDEBAR_MIN,
+   SIDEBAR_DEFAULT, SIDEBAR_MAX, SIDEBAR_MIN,
+ } from './columns.ts'
+ 
+@@ -35,6 +35,7 @@ type LayoutState = {
+  */
+ type LayoutActions = {
+   setSidebar: (draft: LayoutState, px: number) => void
++  setRightSidebar: (draft: LayoutState, px: number) => void
+   setDetails: (draft: LayoutState, px: number) => void
+   toggleSidebar: (draft: LayoutState) => void
+   setNarrow: (draft: LayoutState, narrow: boolean) => void
+@@ -70,6 +71,7 @@ export function createLayoutStore(): EngineStoreHandle<LayoutState, LayoutAction
+     }),
+     actions: {
+       setSidebar: (d, px: number) => { d.sidebar = clampWidth(px, SIDEBAR_MIN, SIDEBAR_MAX) },
++      setRightSidebar: (d, px: number) => { d.rightSidebar = clampWidth(px, RIGHT_SIDEBAR_MIN, RIGHT_SIDEBAR_MAX) },
+       setDetails: (d, px: number) => { d.details = clampWidth(px, DETAILS_MIN, DETAILS_MAX) },
+       // Narrow toggles flip only the override: the width preference survives
+       // untouched, so re-widening restores the pre-squeeze layout.
+diff --git a/packages/client/ui-layout/tests/app-frame.client.spec.tsx b/packages/client/ui-layout/tests/app-frame.client.spec.tsx
+index 71cd8f7dd..048822501 100644
+--- a/packages/client/ui-layout/tests/app-frame.client.spec.tsx
++++ b/packages/client/ui-layout/tests/app-frame.client.spec.tsx
+@@ -266,6 +266,27 @@ describe('AppFrame', () => {
+     expect(tracks(frame)[1]).toBe(420)
+   })
+ 
++  it('right-sidebar drag widens leftward and exposes an accessible separator', () => {
++    const { frame, instance } = mountFrame()
++    act(() => { instance.actions.openRightSidebar() })
++    const handle = frame.querySelector('[data-side="right-sidebar"]')!
++    expect(handle.getAttribute('role')).toBe('separator')
++    expect(handle.getAttribute('aria-orientation')).toBe('vertical')
++    expect(handle.getAttribute('tabindex')).toBe('0')
++    drag(handle, 1600, 1520)
++    expect(instance.getSnapshot().rightSidebar).toBe(400)
++  })
++
++  it('right-sidebar keyboard resize uses 16px steps and Shift uses 64px', () => {
++    const { frame, instance } = mountFrame()
++    act(() => { instance.actions.openRightSidebar() })
++    const handle = frame.querySelector('[data-side="right-sidebar"]')!
++    act(() => { handle.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowLeft', bubbles: true })) })
++    expect(instance.getSnapshot().rightSidebar).toBe(336)
++    act(() => { handle.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowRight', shiftKey: true, bubbles: true })) })
++    expect(instance.getSnapshot().rightSidebar).toBe(272)
++  })
++
+   it('drag base is the rendered (concession-clamped) width, not the preference', () => {
+     frameWidth = 1250 // step-2 squeeze: details renders 330 while preference is 360
+     const { frame, instance } = mountFrame()
+diff --git a/packages/client/ui-layout/tests/apply.client.spec.ts b/packages/client/ui-layout/tests/apply.client.spec.ts
+index 2ea0d7a7c..d50e26584 100644
+--- a/packages/client/ui-layout/tests/apply.client.spec.ts
++++ b/packages/client/ui-layout/tests/apply.client.spec.ts
+@@ -61,7 +61,7 @@ describe('ui-layout client apply', () => {
+     await fiber.await()
+     const actions = {
+       setSidebar: vi.fn(), setDetails: vi.fn(), toggleSidebar: vi.fn(), setNarrow: vi.fn(),
+-      openDetails: vi.fn(), closeDetails: vi.fn(), openRightSidebar: vi.fn(), closeRightSidebar: vi.fn(),
++      openDetails: vi.fn(), closeDetails: vi.fn(), openRightSidebar: vi.fn(), closeRightSidebar: vi.fn(), setRightSidebarWidth: vi.fn(),
+     }
+     const injected = (slots.entries('root')[0]!.inject as (actions: never) => object)(actions as never)
+     expect(injected).toEqual({})
+diff --git a/packages/client/ui-layout/tests/layout-store.client.spec.ts b/packages/client/ui-layout/tests/layout-store.client.spec.ts
+index ae57ab895..2149752b0 100644
+--- a/packages/client/ui-layout/tests/layout-store.client.spec.ts
++++ b/packages/client/ui-layout/tests/layout-store.client.spec.ts
+@@ -9,7 +9,7 @@ import { beforeEach, describe, expect, it } from 'vitest'
+ import { createLayoutStore } from '@deepseek-ai/dsh-client-ui-layout/src/client/stores.ts'
+ import {
+   DETAILS_DEFAULT, DETAILS_MAX, DETAILS_MIN,
+-  RIGHT_SIDEBAR_DEFAULT,
++  RIGHT_SIDEBAR_DEFAULT, RIGHT_SIDEBAR_MAX, RIGHT_SIDEBAR_MIN,
+   SIDEBAR_DEFAULT, SIDEBAR_MAX, SIDEBAR_MIN,
+ } from '@deepseek-ai/dsh-client-ui-layout/src/client/columns.ts'
+ 
+@@ -32,12 +32,16 @@ describe('createLayoutStore', () => {
+     expect(b.store.getSnapshot().sidebar).toBe(SIDEBAR_DEFAULT)
+   })
+ 
+-  it('setSidebar/setDetails clamp into the contract ranges', () => {
++  it('setSidebar/setRightSidebar/setDetails clamp into the contract ranges', () => {
+     const { store, actions } = createLayoutStore().create()
+     actions.setSidebar(1)
+     expect(store.getSnapshot().sidebar).toBe(SIDEBAR_MIN)
+     actions.setSidebar(9999)
+     expect(store.getSnapshot().sidebar).toBe(SIDEBAR_MAX)
++    actions.setRightSidebar(1)
++    expect(store.getSnapshot().rightSidebar).toBe(RIGHT_SIDEBAR_MIN)
++    actions.setRightSidebar(9999)
++    expect(store.getSnapshot().rightSidebar).toBe(RIGHT_SIDEBAR_MAX)
+     actions.setDetails(1)
+     expect(store.getSnapshot().details).toBe(DETAILS_MIN)
+     actions.setDetails(9999)
+@@ -94,8 +98,9 @@ describe('createLayoutStore', () => {
+     const { store, actions } = createLayoutStore().create()
+     actions.openRightSidebar()
+     expect(store.getSnapshot().rightSidebar).toBe(RIGHT_SIDEBAR_DEFAULT)
++    actions.setRightSidebar(480)
+     actions.openRightSidebar()
+-    expect(store.getSnapshot().rightSidebar).toBe(RIGHT_SIDEBAR_DEFAULT)
++    expect(store.getSnapshot().rightSidebar).toBe(480)
+     actions.closeRightSidebar()
+     expect(store.getSnapshot().rightSidebar).toBe(0)
+   })
+diff --git a/packages/client/ui-layout/tests/service.client.spec.ts b/packages/client/ui-layout/tests/service.client.spec.ts
+index 361fb2977..547a051b3 100644
+--- a/packages/client/ui-layout/tests/service.client.spec.ts
++++ b/packages/client/ui-layout/tests/service.client.spec.ts
+@@ -11,6 +11,7 @@ import type { PanelActions } from '@deepseek-ai/dsh-client-ui-layout/src/client/
+ function fakePanels(): PanelActions {
+   return {
+     setSidebar: vi.fn(),
++    setRightSidebar: vi.fn(),
+     setDetails: vi.fn(),
+     toggleSidebar: vi.fn(),
+     setNarrow: vi.fn(),
+@@ -32,12 +33,14 @@ describe('LayoutController', () => {
+     service.closeDetails()
+     service.openRightSidebar()
+     service.closeRightSidebar()
++    service.setRightSidebarWidth(480)
+ 
+     expect(panels.toggleSidebar).toHaveBeenCalledTimes(1)
+     expect(panels.openDetails).toHaveBeenCalledTimes(1)
+     expect(panels.closeDetails).toHaveBeenCalledTimes(1)
+     expect(panels.openRightSidebar).toHaveBeenCalledTimes(1)
+     expect(panels.closeRightSidebar).toHaveBeenCalledTimes(1)
++    expect(panels.setRightSidebar).toHaveBeenCalledWith(480)
+     expect(panels.setSidebar).not.toHaveBeenCalled()
+     expect(panels.setDetails).not.toHaveBeenCalled()
+   })
+@@ -49,6 +52,7 @@ describe('LayoutController', () => {
+     expect(() => { service.closeDetails() }).toThrow(/panel actions not wired/)
+     expect(() => { service.openRightSidebar() }).toThrow(/panel actions not wired/)
+     expect(() => { service.closeRightSidebar() }).toThrow(/panel actions not wired/)
++    expect(() => { service.setRightSidebarWidth(480) }).toThrow(/panel actions not wired/)
+   })
+ 
+   it('re-attach overwrites the stale action set (entry re-register)', () => {
+-- 
+2.51.0.windows.1
+

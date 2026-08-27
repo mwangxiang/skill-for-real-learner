@@ -1,15 +1,16 @@
 # DSH Work & Learning
 
-> Pilot-native candidate: `0.1.0-alpha.21`
+> Pilot-native candidate: `0.1.0-alpha.23`
 > Frozen partner baseline: `0.1.0-alpha.18`
 
 An installable Host + Client Bundle for Pilot Harness
 `v0.1.0-rc.7-pilot.2`. It adds one session-header utility and a native docked
 right sidebar while preserving the native sidebar, conversation, composer,
 settings, model controls, and Files plugin. The Host plane remains compatible
-with the official DeepSeek Harness `0.1.1-rc.2` baseline, but the alpha.21 UI
+with the official DeepSeek Harness `0.1.1-rc.2` baseline, but the alpha.23 UI
 requires Pilot's `conversation.session.header.utilities` and
-`shell.right-sidebar` contracts.
+`shell.right-sidebar` contracts. Resizing additionally requires the frozen
+Pilot companion patch under `integrations/pilot-harness/`.
 
 The product order is fixed:
 
@@ -25,7 +26,7 @@ Chinese is the primary language and English is fully available. Ordinary users d
 
 ```powershell
 $env:DSH_HOME = 'C:\path\to\isolated-dsh-home'
-dsh plugin --profile web add C:\path\to\mwangxiang-dsh-visual-learner-0.1.0-alpha.21.tgz
+dsh plugin --profile web add C:\path\to\mwangxiang-dsh-visual-learner-0.1.0-alpha.23.tgz
 dsh web --no-open --port 3080
 ```
 

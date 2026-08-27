@@ -15,11 +15,25 @@ if (source.commit !== 'd1fa9c15fc00c05ea6931aafd724554ca34d5a6d') {
   throw new Error(`Unexpected Pilot source lock: ${source.commit}`)
 }
 
-for (const [relative, expected] of Object.entries(source.abi_files)) {
-  const content = await readFile(resolve(pilotRoot, relative))
-  const actual = createHash('sha256').update(content).digest('hex')
-  if (actual !== expected) throw new Error(`Pilot ABI source drift: ${relative}\nexpected ${expected}\nactual   ${actual}`)
+async function matches(files) {
+  for (const [relative, expected] of Object.entries(files)) {
+    const content = await readFile(resolve(pilotRoot, relative))
+    const actual = createHash('sha256').update(content).digest('hex')
+    if (actual !== expected) return false
+  }
+  return true
 }
+
+const mode = await matches(source.abi_files)
+  ? 'upstream-base'
+  : await matches(source.alpha23_integration.files)
+    ? 'alpha23-integration'
+    : null
+if (mode === null) throw new Error('Pilot ABI source drift: neither frozen upstream nor alpha.23 integration hashes match')
+
+const patchContent = await readFile(new URL(`../${source.alpha23_integration.patch}`, import.meta.url))
+const patchHash = createHash('sha256').update(patchContent).digest('hex')
+if (patchHash !== source.alpha23_integration.patch_sha256) throw new Error(`Pilot integration patch drift: ${patchHash}`)
 
 const layout = await readFile(resolve(pilotRoot, 'packages/client/ui-layout/src/client/index.ts'), 'utf8')
 const conversation = await readFile(resolve(pilotRoot, 'packages/client/ui-conversation/src/client/contract/slots.ts'), 'utf8')
@@ -35,11 +49,22 @@ for (const witness of [
   if (!haystack.includes(witness)) throw new Error(`Pilot ABI witness missing: ${witness}`)
 }
 
+if (mode === 'alpha23-integration') {
+  const frame = await readFile(resolve(pilotRoot, 'packages/client/ui-layout/src/client/AppFrame.tsx'), 'utf8')
+  for (const witness of ['setRightSidebarWidth?(px: number): void', "side=\"right-sidebar\"", 'actions.setRightSidebar']) {
+    const haystack = witness.includes('Width?') ? service : frame
+    if (!haystack.includes(witness)) throw new Error(`Pilot alpha.23 integration witness missing: ${witness}`)
+  }
+}
+
 console.log(JSON.stringify({
   ok: true,
   pilotRoot,
   commit: source.commit,
-  abiFiles: Object.keys(source.abi_files).length,
+  mode,
+  abiFiles: Object.keys(mode === 'upstream-base' ? source.abi_files : source.alpha23_integration.files).length,
   slots: ['conversation.session.header.utilities', 'shell.right-sidebar'],
-  layoutActions: ['openRightSidebar', 'closeRightSidebar'],
+  layoutActions: mode === 'upstream-base'
+    ? ['openRightSidebar', 'closeRightSidebar']
+    : ['openRightSidebar', 'closeRightSidebar', 'setRightSidebarWidth'],
 }, null, 2))
