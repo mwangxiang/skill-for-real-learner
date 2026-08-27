@@ -1,9 +1,13 @@
 # DSH 学习面板 Spec v3 执行与测试报告
 
-日期：2026-08-26 至 2026-08-27  
-官方基线：DeepSeek Harness `0.1.1-rc.2`  
-官方 commit：`b150a551b8d465e31e418e1b2eaf5e79bbb7d28e`  
-插件测试包：`@mwangxiang/dsh-visual-learner@0.1.0-alpha.14`  
+日期：2026-08-26 至 2026-08-27
+
+官方基线：DeepSeek Harness `0.1.1-rc.2`
+
+官方 commit：`b150a551b8d465e31e418e1b2eaf5e79bbb7d28e`
+
+插件测试包：`@mwangxiang/dsh-visual-learner@0.1.0-alpha.14`
+
 执行约束：实现阶段使用隔离 Profile；用户随后明确授权替换真实 Web Profile 做安装测试
 
 ## 1. 当前结论

@@ -98,4 +98,3 @@ export interface WorkEvent {
   summary: string
   project: WorkProject
 }
-

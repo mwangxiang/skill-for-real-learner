@@ -1,7 +1,9 @@
 # DSH Work & Learning alpha.18 测试报告
 
-> 日期：2026-08-27（Asia/Shanghai）  
-> 基线：官方 DeepSeek Harness `0.1.1-rc.2` / `b150a551b8d465e31e418e1b2eaf5e79bbb7d28e`  
+> 日期：2026-08-27（Asia/Shanghai）
+>
+> 基线：官方 DeepSeek Harness `0.1.1-rc.2` / `b150a551b8d465e31e418e1b2eaf5e79bbb7d28e`
+>
 > 最终包：`@mwangxiang/dsh-visual-learner@0.1.0-alpha.18`
 
 ## 1. 本轮目标
