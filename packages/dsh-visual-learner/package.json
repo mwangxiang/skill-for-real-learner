@@ -1,6 +1,6 @@
 {
   "name": "@mwangxiang/dsh-visual-learner",
-  "version": "0.1.0-alpha.21",
+  "version": "0.1.0-alpha.22",
   "private": true,
   "description": "Pilot-native work-delivery, asset-distillation, and optional-learning sidebar for DeepSeek Harness",
   "type": "module",

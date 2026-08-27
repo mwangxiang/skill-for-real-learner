@@ -48,10 +48,26 @@ describe('M2 Client contract', () => {
     expect(styles).toContain('box-sizing:border-box')
     expect(styles).toContain('width:100%')
     expect(styles).toContain('height:100%')
+    expect(styles).toContain('grid-template-rows:auto minmax(0,1fr) auto')
+    expect(styles).toContain('.dsh-learning-nav{position:static')
+    expect(styles).not.toContain('.dsh-learning-nav{position:absolute')
+    expect(styles).not.toContain('padding:20px 18px 92px')
     expect(styles).not.toContain('position:fixed')
     expect(styles).not.toContain('box-shadow:-12px')
     expect(styles).toContain('@media(forced-colors:active)')
     expect(styles).not.toContain('@keyframes dsh-learning-slide')
+  })
+
+  it('keeps unavailable product areas out of navigation and gives empty pages a route back to work', async () => {
+    const navigation = await readFile(join(clientRoot, 'components', 'RootNavigation.tsx'), 'utf8')
+    expect(navigation).toContain('project.artifact !== null')
+    expect(navigation).toContain('project.learning.offered')
+    expect(navigation).toContain('if (items.length === 1) return null')
+    for (const file of ['ReviewQueuePage.tsx', 'OutcomesPage.tsx']) {
+      const source = await readFile(join(clientRoot, 'components', file), 'utf8')
+      expect(source).toContain('t.goToWork')
+      expect(source).toContain("controller.navigate({ kind: 'overview' })")
+    }
   })
 
   it('never falls back to fixture projects in production pages', async () => {

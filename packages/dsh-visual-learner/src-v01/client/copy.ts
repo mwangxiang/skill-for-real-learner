@@ -2,7 +2,7 @@ export type Locale = 'zh-CN' | 'en'
 
 export const copy = {
   'zh-CN': {
-    open: '打开工作空间', close: '关闭工作空间', title: '工作空间', home: '工作', reviews: '学习', outcomes: '资产',
+    open: '打开工作空间', close: '关闭工作空间', title: '工作空间', home: '工作', reviews: '学习', outcomes: '资产', goToWork: '返回工作',
     emptyPrompt: '你现在想把什么事情真正做完？', emptyBody: '直接说明对象、目的、已有材料和想要的成品。信息足够时，AI 会直接开始制作。', goalLabel: '这次要完成的工作',
     goalPlaceholder: '例如：做一份给部门主管的 7 页项目汇报，说明进度、资源投入、成果和困难，希望争取技术支持与资源倾斜。',
     workExample: '做一份给部门主管的 7 页项目汇报。重点说明项目进度、时间与资源投入、已完成工作和当前困难，希望争取技术支持与资源倾斜。最好可以直接发送，合格版本只需微调。',
@@ -26,7 +26,7 @@ export const copy = {
     routeChanges: '查看变化', projectMenu: '项目操作', rename: '重命名', pause: '暂停项目', archive: '归档项目', export: '导出项目', whyNow: '为什么现在做', finishLine: '做到什么算完成', viewRoute: '查看项目', notFit: '这一步不适合我', saveNote: '内容保存在当前项目。', proven: '已经证明', notProven: '尚未证明', adjustment: '调整', nextStep: '下一步', continueNext: '继续', evidence: '你的内容', inputHint: '可以从这里开始', checkingEvidence: '正在处理…', checkingHelp: '请不要重复提交。', submitEvidence: '提交', submitReview: '提交', confirm: '确认', beginStep: '开始', answer: '提交', due: '今天到期', overdue: '已逾期', later: '稍后', defer: '延期一天', timeline: '时间线', evidenceStatus: '证据', methods: '方法', works: '作品', activity: '活动',
   },
   en: {
-    open: 'Open workspace', close: 'Close workspace', title: 'Workspace', home: 'Work', reviews: 'Learn', outcomes: 'Assets',
+    open: 'Open workspace', close: 'Close workspace', title: 'Workspace', home: 'Work', reviews: 'Learn', outcomes: 'Assets', goToWork: 'Back to work',
     emptyPrompt: 'What do you want to get done?', emptyBody: 'Describe the audience, purpose, available material, and deliverable. If that is enough, AI starts immediately.', goalLabel: 'Work to complete',
     goalPlaceholder: 'Example: create a seven-slide project update for my department lead to request technical and staffing support.',
     workExample: 'Create a seven-slide project update for my department lead. Cover progress, time and resources, completed work, and current blockers. The goal is to obtain technical and resource support. A good version should need only minor edits.',
